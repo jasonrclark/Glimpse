@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LukeSkywalker.IPNetwork">
+      <HintPath>..\..\lib\IPNetwork\LukeSkywalker.IPNetwork.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -50,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\HttpContextBaseExtensionsTest.cs" />
+    <Compile Include="IpAddressValidatorTest.cs" />
     <Compile Include="ModuleTest.cs" />
     <Compile Include="Plugin\RequestTest.cs" />
     <Compile Include="Plugin\ServerTest.cs" />

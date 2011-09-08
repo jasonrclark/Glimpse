@@ -45,7 +45,7 @@ namespace Glimpse.Core
 
             Logger.Info(Configuration);
 
-            RequestValidator = new GlimpseRequestValidator(Configuration, Enumerable.Empty<IGlimpseValidator>(), Factory);
+            RequestValidator = new GlimpseRequestValidator(Enumerable.Empty<IGlimpseValidator>(), Factory);
 
             Sanitizer = new CSharpSanitizer();
 
@@ -239,6 +239,8 @@ namespace Glimpse.Core
 
             var requestId = context.GetGlimpseRequestId().ToString();
 
+            //CheckForPRG(context);
+
             var jsonPayload = GenerateGlimpseOutput(context);
             Logger.Info("Glimpse output generated for requestId " + requestId + " (" + context.Request.Path + ")");
 
@@ -247,6 +249,52 @@ namespace Glimpse.Core
 
             Logger.Info("EndRequest handling complete for requestId " + context.GetGlimpseRequestId() + " (" + context.Request.Path + ")");
         }
+
+/*
+        private static void CheckForPRG(HttpContextBase context)
+        {
+            //Check token
+            Func<HttpContextBase, bool> IsCorrelated = ctx =>
+                                                           {
+                                                               var isGet = ctx.Request.HttpMethod.Equals("GET", StringComparison.InvariantCultureIgnoreCase);
+                                                               var hasCookie = ctx.Request.Cookies.AllKeys.Contains("prgLocation");
+                                                               var cookieValue = hasCookie ? ctx.Request.Cookies["prgLocation"].Value : "";
+                                                               var cookieEqualsPath = ctx.Request.Path.Equals(cookieValue);
+                                                               return (isGet && hasCookie && cookieEqualsPath);
+                                                           };
+            Func<HttpContextBase, bool> IsCandidate = ctx =>
+                                                          {
+                                                              var isPost = ctx.Request.HttpMethod.Equals("POST", StringComparison.InvariantCultureIgnoreCase);
+                                                              var isRedirect = (ctx.Response.StatusCode == 301 || ctx.Response.StatusCode == 302);
+                                                              return (isPost && isRedirect);
+                                                          };
+            Func<HttpContextBase, string> CompareValue = ctx => ctx.Response.RedirectLocation;
+
+            string Key = "prgLocation";
+            string KeyId = Key + "Id";
+
+
+
+            if(IsCorrelated(context))
+            {
+                var getCorrId = context.Request.Cookies[KeyId].Value;
+                context.Response.Write("<h1>Correlated to " + getCorrId + "</h1>");
+            }
+            else
+            {
+                context.Response.Cookies[Key].Expires = DateTime.Now.AddDays(-5);
+                context.Response.Cookies[KeyId].Expires = DateTime.Now.AddDays(-5);
+            }
+
+            //Set token
+            if (IsCandidate(context))
+            {
+                var value = CompareValue(context);
+                context.Response.AppendCookie(new HttpCookie(Key, value));
+                context.Response.AppendCookie(new HttpCookie(KeyId, context.GetGlimpseRequestId().ToString()));
+            }
+        }
+*/
 
         private static void PreSendRequestHeaders(HttpContextBase context)//20
         {
@@ -386,13 +434,23 @@ namespace Glimpse.Core
                     var structurePlugin = pluginValue as IProvideGlimpseStructuredLayout;
                     if (structurePlugin != null) pluginData.Add("structure", BuildStructuredLayout(structurePlugin.StructuredLayout));
 
+                    var pagingPlugin = pluginValue as IProvideGlimpsePaging;
+                    if (pagingPlugin != null)
+                        pluginData.Add("pagingInfo", new
+                        {
+                            pagerKey = pagingPlugin.PagerKey,
+                            pagerType = pagingPlugin.PagerType,
+                            pageSize = pagingPlugin.PageSize,
+                            pageIndex = pagingPlugin.PageIndex,
+                            totalNumberOfRecords = pagingPlugin.TotalNumberOfRecords
+                        });
+
                     if (pluginData.Count > 0) pluginsMetadata.Add(pluginValue.Name, pluginData);
                 }
 
                 var metadataString = Serializer.Serialize(metadata);
                 sb.Append(string.Format(",\"{0}\":{1},", "_metadata", metadataString));
                 if (sb.Length > 1) sb.Remove(sb.Length - 1, 1);
-
             }
             sb.Append("}");
 
