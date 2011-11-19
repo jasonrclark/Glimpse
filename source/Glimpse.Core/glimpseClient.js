@@ -77,8 +77,8 @@ var glimpse, glimpsePath;
 if (window.jQueryGlimpse) { (function ($) {
 
     //#region Setup
-    var glimpseCss = '.glimpse, .glimpse *, .glimpse a, .glimpse td, .glimpse th, .glimpse table { font-family: Helvetica, Arial, sans-serif; background-color:transparent; font-size:11px; line-height:14px; border:0px; color:#232323; text-align:left; } .glimpse table { min-width:0; } .glimpse a, .glimpse a:hover, .glimpse a:visited { color:#2200C1; text-decoration:underline; font-weight:normal; }.glimpse a:active { color:#c11; text-decoration:underline; font-weight:normal; }.glimpse th { font-weight:bold; }.glimpse-open { z-index: 100010; position:fixed; right:0; bottom:0; height:27px; width:28px; background: #cfcfcf; background: -moz-linear-gradient(top, #cfcfcf 0%, #dddddd 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(100%,#dddddd)); background: -webkit-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -o-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -ms-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#cfcfcf\', endColorstr=\'#dddddd\',GradientType=0 ); background: linear-gradient(top, #cfcfcf 0%,#dddddd 100%); -webkit-box-shadow: inset 0px 1px 0px 0px #E2E2E2; -moz-box-shadow: inset 0px 1px 0px 0px #E2E2E2; box-shadow: inset 0px 1px 0px 0px #E2E2E2; border-top: 1px solid #7A7A7A; border-left: 1px solid #7A7A7A; }.glimpse-icon { background:url() 0px -16px; height:20px; width:20px; margin: 3px 4px 0; cursor:pointer; }.glimpse-holder { display:none; z-index:100010 !important; height:0; position:fixed; bottom:0; left:0; width:100%; background-color:#fff; }.glimpse-bar { background: #cfcfcf; background: -moz-linear-gradient(top, #cfcfcf 0%, #dddddd 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(100%,#dddddd)); background: -webkit-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -o-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -ms-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#cfcfcf\', endColorstr=\'#dddddd\',GradientType=0 ); background: linear-gradient(top, #cfcfcf 0%,#dddddd 100%); -webkit-box-shadow: inset 0px 1px 0px 0px #E2E2E2; -moz-box-shadow: inset 0px 1px 0px 0px #E2E2E2; box-shadow: inset 0px 1px 0px 0px #E2E2E2; border-top: 1px solid #7A7A7A; height: 27px; }.glimpse-bar .glimpse-icon { margin-top:4px; float:left; } .glimpse-buttons { text-align:right; float:right; height:17px; width:150px; padding:6px; }.glimpse-title { margin:0 0 0 15px; padding-top:5px; font-weight:bold; display:inline-block; width:75%; overflow:hidden; }.glimpse-title .glimpse-snapshot-type { display:inline-block; height:20px; }.glimpse-title .glimpse-enviro { padding-left:10px; white-space:nowrap; height:20px; } .glimpse-title .glimpse-url .glimpse-drop { padding-left:10px; } .glimpse-title .glimpse-url .loading { margin:5px 0 0; font-weight:normal; display:none; } .glimpse-title .glimpse-url .glimpse-drop-over { padding-left:20px; padding-right:20px; text-align: center; } .glimpse .glimpse-drop { padding:1px 1px 1px 8px; height:14px; font-size:0.9em; } .glimpse .glimpse-drop, .glimpse .glimpse-drop-over { font-weight:normal; font-weight:normal; background: #f7f7f7; background: -moz-linear-gradient(top, #f7f7f7 0%, #e6e6e6 29%, #e2e2e2 31%, #c9c9c9 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(29%,#e6e6e6), color-stop(31%,#e2e2e2), color-stop(100%,#c9c9c9));background: -webkit-linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%);background: -o-linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%);background: -ms-linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#f7f7f7\', endColorstr=\'#c9c9c9\',GradientType=0 );background: linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%); -webkit-box-shadow: inset 0px 1px 0px 0px #F9F9F9; -moz-box-shadow: inset 0px 1px 0px 0px #F9F9F9; box-shadow: inset 0px 1px 0px 0px #F9F9F9; border: 1px solid #A7A7A7; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; margin: 0 5px 0 0; } .glimpse .glimpse-drop-over { position:absolute; display:none; top:4px; padding: 1px 10px 10px 10px; z-index:100; -webkit-box-shadow: 0px 0px 8px 0px #696969; -moz-box-shadow: 0px 0px 8px 0px #696969; box-shadow: 0px 0px 8px 0px #696969; } .glimpse .glimpse-drop-over div { text-align:center; font-weight:bold; margin:5px 0; }  .glimpse .glimpse-drop-arrow-holder { margin: 3px 3px 3px 5px; padding-left: 3px; border-left: 1px solid #A7A7A7; font-size: 9px; height: 9px; width: 10px; } .glimpse .glimpse-drop-arrow { background: url() no-repeat -22px -18px; width: 7px;  height: 4px; display: inline-block; } .glimpse-button, .glimpse-button:hover { cursor:pointer; background-image:url(); background-repeat:no-repeat; height:14px; width:14px; margin-left:2px; display:inline-block; }.glimpse-meta-warning { background-position:-168px -1px; display:none; }.glimpse-meta-warning:hover { background-position:-183px -1px; } .glimpse-meta-help { background-position:-138px -1px; margin-right:15px; }.glimpse-meta-help:hover { background-position:-153px -1px; margin-right:15px; }.glimpse-meta-update { background-position:-198px -1px; display:none; }.glimpse-meta-update:hover { background-position:-213px -1px; }.glimpse-close { background-position:-1px -1px; }.glimpse-close:hover { background-position:-17px -1px; }.glimpse-terminate { background-position:-65px -1px; }.glimpse-terminate:hover { background-position:-81px -1px; } .glimpse-popout { background-position:-96px -1px; }.glimpse-popout:hover { background-position: -111px -1px; } .glimpse-tabs { background: #afafaf; background: -moz-linear-gradient(top, #afafaf 0%, #cfcfcf 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#afafaf), color-stop(100%,#cfcfcf)); background: -webkit-linear-gradient(top, #afafaf 0%,#cfcfcf 100%); background: -o-linear-gradient(top, #afafaf 0%,#cfcfcf 100%); background: -ms-linear-gradient(top, #afafaf 0%,#cfcfcf 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#afafaf\', endColorstr=\'#cfcfcf\',GradientType=0 ); background: linear-gradient(top, #afafaf 0%,#cfcfcf 100%); border-bottom: 1px solid #A4A4A4; border-top: 1px solid #F9F9F9; -webkit-box-shadow: inset 0px 1px 0px 0px #8b8b8b;-moz-box-shadow: inset 0px 1px 0px 0px #8b8b8b;box-shadow: inset 0px 1px 0px 0px #8b8b8b; font-weight: bold; height: 24px; }.glimpse-tabs ul { margin:4px 0px 0 0; padding:0px; }.glimpse-tabs li { display:inline; margin:0 2px 3px 2px; height:22px; padding:4px 9px 3px; color:#565656; cursor:pointer; border-radius: 0px 0px 3px 3px; -moz-border-radius: 0px 0px 3px 3px; -webkit-border-bottom-right-radius: 3px; -webkit-border-bottom-left-radius: 3px; -webkit-transition: color 0.3s ease;-moz-transition: color 0.3s ease;-o-transition: color 0.3s ease;transition: color 0.3s ease; } .glimpse-tabs li.glimpse-hover { padding:4px 8px 3px; background: #dddddd;background: -moz-linear-gradient(top, #dddddd 0%, #ffffff 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(100%,#ffffff));background: -webkit-linear-gradient(top, #dddddd 0%,#ffffff 100%);background: -o-linear-gradient(top, #dddddd 0%,#ffffff 100%);background: -ms-linear-gradient(top, #dddddd 0%,#ffffff 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#dddddd\', endColorstr=\'#ffffff\',GradientType=0 );background: linear-gradient(top, #dddddd 0%,#ffffff 100%);-webkit-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;-moz-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9; border-bottom: 1px solid #8B8B8B; border-left: 1px solid #8B8B8B; border-right: 1px solid #8B8B8B; border-top: 2px solid #DDD; }.glimpse-tabs li.glimpse-active { background: #dddddd;background: -moz-linear-gradient(top, #dddddd 0%, #efefef 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(100%,#efefef));background: -webkit-linear-gradient(top, #dddddd 0%,#efefef 100%);background: -o-linear-gradient(top, #dddddd 0%,#efefef 100%);background: -ms-linear-gradient(top, #dddddd 0%,#efefef 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#dddddd\', endColorstr=\'#efefef\',GradientType=0 );background: linear-gradient(top, #dddddd 0%,#efefef 100%);-webkit-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;-moz-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9; border-bottom: 1px solid #8b8b8b; border-left: 1px solid #8b8b8b; border-right: 1px solid #8b8b8b; border-top: 2px solid #DDD; color: #000; padding: 4px 8px 3px; }.glimpse-tabs li.glimpse-disabled { color:#AAA; cursor:default; }.glimpse-panel-holder {}.glimpse-panel { display:none; overflow:auto; position:relative; } .glimpse-panel-message { text-align:center; padding-top:40px; font-size:1.1em; color:#AAA; }.glimpse-panel table { border-spacing:0; width:100%; }.glimpse-panel table td, .glimpse-panel table th { padding:3px 4px; text-align:left; vertical-align:top; } .glimpse-panel table td .glimpse-cell { vertical-align:top; } .glimpse-panel tbody .mono { font-family:Consolas, monospace, serif; font-size: 1.1em; } .glimpse-panel tr.glimpse-row-header-0 { height:19px; } .glimpse-panel .glimpse-row-header-0 th { background: #DFDFDF; background: -moz-linear-gradient(top, #f3f3f3 0%, #f3f3f3 5%, #e6e6e6 6%, #d1d1d1 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(5%,#f3f3f3), color-stop(6%,#e6e6e6), color-stop(100%,#d1d1d1)); background: -webkit-linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); background: -o-linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); background: -ms-linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#f3f3f3\', endColorstr=\'#d1d1d1\',GradientType=0 ); background: linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); border-bottom: 1px solid #9C9C9C; font-weight: bold; } .glimpse-panel .glimpse-row-header-0 th { border-left:1px solid #D9D9D9; border-right:1px solid #9C9C9C; } .glimpse-panel .glimpse-soft { color:#999; } .glimpse-panel .glimpse-cell-key { font-weight:bold; } .glimpse-panel th.glimpse-cell-key { width:30%; max-width:150px; } .glimpse-panel table table { border:1px solid #D9D9D9; } .glimpse-panel table table thead th { background: #f3f3f3; background: -moz-linear-gradient(top, #f3f3f3 0%, #e6e6e6 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#e6e6e6)); background: -webkit-linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); background: -o-linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); background: -ms-linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#f3f3f3\', endColorstr=\'#e6e6e6\',GradientType=0 ); background: linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); border-bottom: 1px solid #9C9C9C; } .glimpse-panel table table thead tr th { border-left:1px solid #C6C6C6; border-right:1px solid #D9D9D9; padding:1px 4px 2px 4px; }.glimpse-panel table table thead tr th:first-child { border-left:0px; }.glimpse-panel table table thead tr th:last-child { border-right:0px; }.glimpse-panel .even, .glimpse-panel .even > td, .glimpse-panel .even > th, .glimpse-panel .even > tr > td, .glimpse-panel .even > tr > th, .even > td > .glimpse-preview-table > tbody > tr > td, .even > tr > td > .glimpse-preview-table > tbody > tr > td { background-color:#F2F5F9; } .glimpse-panel .odd, .glimpse-panel .odd > td, .glimpse-panel .odd > th, .glimpse-panel .odd > tr > td, .glimpse-panel .odd > tr > th, .odd > td > .glimpse-preview-table > tbody > tr > td, .odd > tr > td > .glimpse-preview-table > tbody > tr > td { background-color:#FEFFFF; }.glimpse-panel table table tbody th { font-weight:normal; font-style:italic; }.glimpse-panel table table thead th { font-weight:bold; font-style:normal; }.glimpse-panel .glimpse-side-sub-panel { right:0; z-index:10; background-color:#FAFCFC; height:100%; width:25%; border-left:1px solid #ACA899; position:absolute; }.glimpse-panel .glimpse-side-main-panel { position:relative; height:100%; width:75%; float:left; } .glimpse-panel-holder .glimpse-active { display:block; }.glimpse-resizer { height:4px; cursor:n-resize; width:100%; position:absolute; top:-1px; }li.glimpse-permanent { font-style:italic; }.glimpse-preview-object { color:#006400; } .glimpse-preview-string, .glimpse-preview-object .glimpse-preview-string { color:#006400; font-weight:normal !important; } .glimpse-preview-string span { padding-left:1px; }.glimpse-preview-object span { font-weight:bold; color:#444; } .glimpse-preview-object span.start { margin-right:5px; } .glimpse-preview-object span.end { margin-left:5px; }.glimpse-preview-object span.rspace { margin-right:4px; }.glimpse-preview-object span.mspace { margin:0 4px; }.glimpse-preview-object span.small { font-size:0.95em; } .glimpse-panel .glimpse-preview-table { border:0; } .glimpse-panel .glimpse-preview-table .glimpse-preview-cell { padding-left:0; padding-right:2px; width:11px; } .glimpse-expand { height:11px; width:11px; display:inline-block; float:left; margin:1px 0 0 0; cursor:pointer; background-image:url(); background-repeat:no-repeat; background-position:-126px 0; }.glimpse-collapse { background-position:-126px -11px; }.glimpse-preview-show { display:none; font-weight:normal !important; }.glimpse-panel .quiet *, .glimpse-panel .ms * { color:#AAA; }.glimpse-panel .suppress { text-decoration:line-through; }.glimpse-panel .suppress * { color:#AAA; } .glimpse-panel .selected, .glimpse-panel .selected > td, .glimpse-panel .selected > th, .glimpse-panel .selected > tr > td, .glimpse-panel .selected > tr > th, .selected > td > .glimpse-preview-table > tbody > tr > td, .selected > tr > td > .glimpse-preview-table > tbody > tr > td { background-color:#FFFF99; }.glimpse-panel .selected * { color:#409B3B; }.glimpse .info .icon, .glimpse .warn .icon, .glimpse .loading .icon, .glimpse .error .icon, .glimpse .fail .icon, .glimpse .ms .icon { width:14px; height:14px; background-image:url(); background-repeat:no-repeat; display:inline-block; margin-right: 5px; } .glimpse .info .icon { background-position: -22px -22px; }.glimpse .warn .icon { background-position:-36px -22px; }.glimpse .loading .icon { background-position:-78px -22px; }.glimpse .error .icon { background-position:-50px -22px; }.glimpse .ms .icon { background-position:-181px -22px; } .glimpse .fail .icon { background-position:-64px -22px; }.glimpse .info * { color:#067CE5; }.glimpse .warn * { color:#FE850C; } .glimpse .error * { color:#B40000; }.glimpse .fail * { color:#B40000; font-weight:bold; }.glimpse-panelitem-Ajax .loading .icon { float:right; }.glimpse-panelitem-Remote .glimpse-side-sub-panel .loading, .glimpse-panelitem-Remote .glimpse-side-main-panel .loading, .glimpse-clear { position:fixed; bottom:5px; right:10px; color:#777; } .glimpse-panelitem-Remote .glimpse-side-main-panel .loading { right:27%; } .glimpse-clear { background-color:white; padding:0.3em 1em 0.5em 1em; border:#CCC solid 1px; bottom:25px; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; } .glimpse-panel table .glimpse-head-message td { text-align:center; background-color:#DDD; } .glimpse-panelitem-GlimpseInformation div { text-align:center; } .glimpse-panelitem-GlimpseInformation .glimpse-panel-message { padding-top:5px; } .glimpse-panelitem-GlimpseInformation strong { font-weight:bold; } .glimpse-panelitem-GlimpseInformation .glimpse-info-more { font-size:1.5em; margin:1em 0; } .glimpse-panelitem-GlimpseInformation .glimpse-info-quote { font-style:italic; margin:0.75em 0 3em; } .glimpse-pager { background: #C6C6C6; padding: 3px 4px; font-weight: bold; text-align: center; vertical-align: top; } .glimpse-pager .glimpse-pager-message { margin-left: 5px; margin-right: 5px; } .glimpse-pager .glimpse-button { margin-top: 0px; } .glimpse-pager .glimpse-pager-link, .glimpse-pager .glimpse-pager-link:hover { font-weight: bold; } .glimpse-pager .glimpse-pager-link-firstPage { background-position: -2px -38px; } .glimpse-pager .glimpse-pager-link-firstPage-disabled { background-position: -17px -38px; } .glimpse-pager .glimpse-pager-link-previousPage { background-position: -33px -38px; } .glimpse-pager .glimpse-pager-link-previousPage-disabled { background-position: -49px -38px; } .glimpse-pager .glimpse-pager-link-nextPage { background-position: -65px -38px; } .glimpse-pager .glimpse-pager-link-nextPage-disabled { background-position: -81px -38px; } .glimpse-pager .glimpse-pager-link-lastPage { background-position: -96px -38px; } .glimpse-pager .glimpse-pager-link-lastPage-disabled { background-position: -111px -38px; } .glimpse-panel table.glimpse-pager-separator { border-bottom: 3px solid #C6C6C6; } @media screen and (-webkit-min-device-pixel-ratio:0) { .glimpse-tabs li.glimpse-hover, .glimpse-tabs li.glimpse-active { border-top:1px solid #DDD; } }';
-    glimpseCss += '.glimpse-panel .glimpse-tl-resizer { position:absolute; width:4px; height:100%; cursor:col-resize; } .glimpse-panel .glimpse-tl-row-summary { position:relative; height:100px; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-resizer-bar { background-color:#404040; width:1px; height:100%; margin-left:2px; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-resizer-handle { background-color:#404040; width:5px; height:20px; top:0; position:absolute; -webkit-border-radius:2px; -moz-border-radius:2px; border-radius:2px; } .glimpse-panel .glimpse-tl-row-spacer { background:#cfcfcf; background:-moz-linear-gradient(top, #cfcfcf 0%, #dddddd 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(100%,#dddddd)); background:-webkit-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background:-o-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background:-ms-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#cfcfcf\', endColorstr=\'#dddddd\',GradientType=0 ); background:linear-gradient(top, #cfcfcf 0%,#dddddd 100%); -webkit-box-shadow:inset 0px 1px 0px 0px #E2E2E2; -moz-box-shadow:inset 0px 1px 0px 0px #E2E2E2; box-shadow:inset 0px 1px 0px 0px #E2E2E2; border-top:1px solid #7A7A7A; height:7px; } .glimpse-panel .glimpse-tl-col-side { position:absolute;width:200px; height:100%; left:0px; } .glimpse-panel .glimpse-tl-col-main { position:absolute; left:200px; right:0px; top:0px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-col-side { border-right:1px solid #404040; } .glimpse-panel .glimpse-tl-row-content { position:relative; height:400px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-resizer { left:200px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-resizer div { background-color:#404040; width:1px; height:100%; } .glimpse-panel .glimpse-tl-band{ padding-top:2px; padding-bottom:2px; } .glimpse-panel .glimpse-tl-col-side .glimpse-tl-band { padding-top:2px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; padding-left:5px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; } .glimpse-panel .glimpse-tl-band { position:relative; height:18px; padding:0px; } .glimpse-panel .glimpse-tl-col-main .glimpse-tl-event { position:absolute; top:4px; margin-left:-2px; } .glimpse-panel .glimpse-tl-band-title { height:20px !important; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; font-weight:bold; padding-top:4px; } .glimpse-panel .glimpse-tl-event { border-radius:4px; width:7px; height:7px; display:inline-block; margin:0 5px 0 2px; background:-moz-linear-gradient(top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 70%, rgba(0,0,0,0.5) 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.7)), color-stop(40%,rgba(255,255,255,0)), color-stop(70%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,0.5))); background:-webkit-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); background:-o-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); background:-ms-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); background:linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); } .glimpse-panel .glimpse-tl-col-main .glimpse-tl-event { width:1%; min-width:3px; } .glimpse-panel .glimpse-tl-event-info { position:absolute; top:1px; padding:0.75em; border:1px solid rgba(0, 0, 0, 0.3); background-color:#FCF7BD; display:none; -webkit-border-radius:15px; -moz-border-radius:15px; border-radius:15px; -webkit-box-shadow:0px 0px 8px 0px #696969; -moz-box-shadow:0px 0px 8px 0px #696969; box-shadow:0px 0px 8px 0px #696969; } .glimpse-panel .glimpse-tl-event-info th { font-weight:bold; text-align:right; } .glimpse-panel .glimpse-tl-event-info .glimpse-tl-event-info-title { text-align:left; border-bottom:1px solid rgba(0, 0, 0, 0.3); } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-event-holder { margin-left:3px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-event-holder { margin-left:15px; } .glimpse-panel .glimpse-tl-event-holder-inner { position:absolute; left:0px; right:0px; margin-left:4px; } .glimpse-panel .glimpse-tl-event-desc-sub { color:#AAA; font-size:0.9em; margin-left:5px; } .glimpse-panel .glimpse-tl-event-overlay { display:none; position:absolute; height:18px; width:7px; } .glimpse-panel .glimpse-tl-event-overlay-lh { position:absolute; left:0; width:1px; } .glimpse-panel .glimpse-tl-event-overlay-li { position:absolute; right:-2px; font-size:0.8em; top:7px; background:url() no-repeat -31px -17px; width:11px; height:3px; } .glimpse-panel .glimpse-tl-event-overlay-lt { position:absolute; right:15px; font-size:0.8em; top:2px; color:rgba(0, 0, 0, 0.75); } .glimpse-panel .glimpse-tl-event-overlay-rh { position:absolute; right:0; width:1px; } .glimpse-panel .glimpse-tl-event-overlay-ri { position:absolute; left:-4px; font-size:0.8em; top:7px; background:url() no-repeat -44px -17px; width:11px; height:3px; } .glimpse-panel .glimpse-tl-event-overlay-rt { font-size:0.8em; position:absolute; top:2px; left:11px; color:rgba(0, 0, 0, 0.75); } .glimpse-panel .glimpse-tl-event-overlay-c { font-size:0.9em; text-align:center; padding-top:1px; color:rgba(0, 0, 0, 0.75); font-weight:bold; } .glimpse-panel .glimpse-tl-content-scroll { overflow-y:scroll; overflow-x:hidden; width:100%; position:absolute; height:100%; } .glimpse-panel .glimpse-tl-padding-holder { right:18px; } .glimpse-panel .glimpse-tl-padding { position:absolute; width:0; top:0; bottom:0; background-color:rgba(0, 0, 0, 0.3); } .glimpse-panel .glimpse-tl-padding-l { left:0; border-left:1px solid #555; } .glimpse-panel .glimpse-tl-padding-r { right:0; border-right:1px solid #555; } .glimpse-panel .glimpse-tl-divider-line-holder { position:absolute; height:100%; top:0; right:0; } .glimpse-panel .glimpse-tl-divider { position:absolute; width:1px; top:0; bottom:0; background-color:rgba(0, 0, 0, 0.1); } .glimpse-panel .glimpse-tl-divider div { position:absolute; top:4px; right:5px; font-size:9px; color:#323232; white-space:nowrap; } .glimpse-panel .glimpse-tl-divider-title-bar { width:100%; background-color:rgba(255, 255, 255, 0.8); border-bottom:1px solid rgba(0, 0, 0, 0.3); height:20px; } .glimpse-panel .glimpse-tl-divider-zero-holder { position:absolute; height:100%; top:0; right:0; left:0; } .glimpse-panel .glimpse-tl-divider-zero-holder .glimpse-tl-divider { left:15px } .glimpse-panel .glimpse-tl-content-scroll .glimpse-tl-divider div { display:none; }  .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-divider-holder { right:19px; height:20px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-content-scroll .glimpse-tl-divider-holder { right:-1px; margin-left:1px; height:100%; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-content-overlay .glimpse-tl-divider-holder { right:16px; height:20px; border-left:1px solid #404040; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-divider-line-holder { left:0; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-divider-line-holder { left:15px; } .glimpse-panel .glimpse-tl-resizer-holder { right:17px; } .glimpse-panel .glimpse-tl-resizer-l { left:0px; margin-left:-2px; } .glimpse-panel .glimpse-tl-resizer-r { right:0px; } .glimpse-panel .glimpse-tl-col-side { background-color:#F2F5F7; } .glimpse-panel .glimpse-tl-col-side .odd, .glimpse-panel .glimpse-tl-col-side .odd > td { background-color:#F2F5F7; } .glimpse-panel .glimpse-tl-col-side .even, .glimpse-panel .glimpse-tl-col-side .even > td { background-color:#E1E7F0; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-band-title { opacity:0.9; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-event-desc-group .glimpse-tl-band { opacity:0.95; }  .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-event-desc-group input { margin-right:5px; float:right; display:none; }';
+    var glimpseCss = '.glimpse, .glimpse *, .glimpse a, .glimpse td, .glimpse th, .glimpse table { font-family: Helvetica, Arial, sans-serif; background-color:transparent; font-size:11px; line-height:14px; border:0px; color:#232323; text-align:left; } .glimpse table { min-width:0; } .glimpse a, .glimpse a:hover, .glimpse a:visited { color:#2200C1; text-decoration:underline; font-weight:normal; }.glimpse a:active { color:#c11; text-decoration:underline; font-weight:normal; }.glimpse th { font-weight:bold; }.glimpse-open { z-index: 100010; position:fixed; right:0; bottom:0; height:27px; width:28px; background: #cfcfcf; background: -moz-linear-gradient(top, #cfcfcf 0%, #dddddd 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(100%,#dddddd)); background: -webkit-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -o-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -ms-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#cfcfcf\', endColorstr=\'#dddddd\',GradientType=0 ); background: linear-gradient(top, #cfcfcf 0%,#dddddd 100%); -webkit-box-shadow: inset 0px 1px 0px 0px #E2E2E2; -moz-box-shadow: inset 0px 1px 0px 0px #E2E2E2; box-shadow: inset 0px 1px 0px 0px #E2E2E2; border-top: 1px solid #7A7A7A; border-left: 1px solid #7A7A7A; }.glimpse-icon { background:url() 0px -16px; height:20px; width:20px; margin: 3px 4px 0; cursor:pointer; }.glimpse-holder { display:none; z-index:100010 !important; height:0; position:fixed; bottom:0; left:0; width:100%; background-color:#fff; }.glimpse-bar { background: #cfcfcf; background: -moz-linear-gradient(top, #cfcfcf 0%, #dddddd 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(100%,#dddddd)); background: -webkit-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -o-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background: -ms-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#cfcfcf\', endColorstr=\'#dddddd\',GradientType=0 ); background: linear-gradient(top, #cfcfcf 0%,#dddddd 100%); -webkit-box-shadow: inset 0px 1px 0px 0px #E2E2E2; -moz-box-shadow: inset 0px 1px 0px 0px #E2E2E2; box-shadow: inset 0px 1px 0px 0px #E2E2E2; border-top: 1px solid #7A7A7A; height: 27px; }.glimpse-bar .glimpse-icon { margin-top:4px; float:left; } .glimpse-buttons { text-align:right; float:right; height:17px; width:150px; padding:6px; }.glimpse-title { margin:0 0 0 15px; padding-top:5px; font-weight:bold; display:inline-block; width:75%; overflow:hidden; }.glimpse-title .glimpse-snapshot-type { display:inline-block; height:20px; }.glimpse-title .glimpse-enviro { padding-left:10px; white-space:nowrap; height:20px; } .glimpse-title .glimpse-url .glimpse-drop { padding-left:10px; } .glimpse-title .glimpse-url .loading { margin:5px 0 0; font-weight:normal; display:none; } .glimpse-title .glimpse-url .glimpse-drop-over { padding-left:20px; padding-right:20px; text-align: center; } .glimpse .glimpse-drop { padding:1px 1px 1px 8px; height:14px; font-size:0.9em; } .glimpse .glimpse-drop, .glimpse .glimpse-drop-over { font-weight:normal; font-weight:normal; background: #f7f7f7; background: -moz-linear-gradient(top, #f7f7f7 0%, #e6e6e6 29%, #e2e2e2 31%, #c9c9c9 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(29%,#e6e6e6), color-stop(31%,#e2e2e2), color-stop(100%,#c9c9c9));background: -webkit-linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%);background: -o-linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%);background: -ms-linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#f7f7f7\', endColorstr=\'#c9c9c9\',GradientType=0 );background: linear-gradient(top, #f7f7f7 0%,#e6e6e6 29%,#e2e2e2 31%,#c9c9c9 100%); -webkit-box-shadow: inset 0px 1px 0px 0px #F9F9F9; -moz-box-shadow: inset 0px 1px 0px 0px #F9F9F9; box-shadow: inset 0px 1px 0px 0px #F9F9F9; border: 1px solid #A7A7A7; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; margin: 0 5px 0 0; } .glimpse .glimpse-drop-over { position:absolute; display:none; top:4px; padding: 1px 10px 10px 10px; z-index:100; -webkit-box-shadow: 0px 0px 8px 0px #696969; -moz-box-shadow: 0px 0px 8px 0px #696969; box-shadow: 0px 0px 8px 0px #696969; } .glimpse .glimpse-drop-over div { text-align:center; font-weight:bold; margin:5px 0; }  .glimpse .glimpse-drop-arrow-holder { margin: 3px 3px 3px 5px; padding-left: 3px; border-left: 1px solid #A7A7A7; font-size: 9px; height: 9px; width: 10px; } .glimpse .glimpse-drop-arrow { background: url() no-repeat -22px -18px; width: 7px;  height: 4px; display: inline-block; } .glimpse-button, .glimpse-button:hover { cursor:pointer; background-image:url(); background-repeat:no-repeat; height:14px; width:14px; margin-left:2px; display:inline-block; }.glimpse-meta-warning { background-position:-168px -1px; display:none; }.glimpse-meta-warning:hover { background-position:-183px -1px; } .glimpse-meta-help { background-position:-138px -1px; margin-right:15px; }.glimpse-meta-help:hover { background-position:-153px -1px; margin-right:15px; }.glimpse-meta-update { background-position:-198px -1px; display:none; }.glimpse-meta-update:hover { background-position:-213px -1px; }.glimpse-close { background-position:-1px -1px; }.glimpse-close:hover { background-position:-17px -1px; }.glimpse-terminate { background-position:-65px -1px; }.glimpse-terminate:hover { background-position:-81px -1px; } .glimpse-popout { background-position:-96px -1px; }.glimpse-popout:hover { background-position: -111px -1px; } .glimpse-tabs { background: #afafaf; background: -moz-linear-gradient(top, #afafaf 0%, #cfcfcf 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#afafaf), color-stop(100%,#cfcfcf)); background: -webkit-linear-gradient(top, #afafaf 0%,#cfcfcf 100%); background: -o-linear-gradient(top, #afafaf 0%,#cfcfcf 100%); background: -ms-linear-gradient(top, #afafaf 0%,#cfcfcf 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#afafaf\', endColorstr=\'#cfcfcf\',GradientType=0 ); background: linear-gradient(top, #afafaf 0%,#cfcfcf 100%); border-bottom: 1px solid #A4A4A4; border-top: 1px solid #F9F9F9; -webkit-box-shadow: inset 0px 1px 0px 0px #8b8b8b;-moz-box-shadow: inset 0px 1px 0px 0px #8b8b8b;box-shadow: inset 0px 1px 0px 0px #8b8b8b; font-weight: bold; height: 24px; }.glimpse-tabs ul { margin:4px 0px 0 0; padding:0px; }.glimpse-tabs li { display:inline; margin:0 2px 3px 2px; height:22px; padding:4px 9px 3px; color:#565656; cursor:pointer; border-radius: 0px 0px 3px 3px; -moz-border-radius: 0px 0px 3px 3px; -webkit-border-bottom-right-radius: 3px; -webkit-border-bottom-left-radius: 3px; -webkit-transition: color 0.3s ease;-moz-transition: color 0.3s ease;-o-transition: color 0.3s ease;transition: color 0.3s ease; } .glimpse-tabs li.glimpse-hover { padding:4px 8px 3px; background: #dddddd;background: -moz-linear-gradient(top, #dddddd 0%, #ffffff 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(100%,#ffffff));background: -webkit-linear-gradient(top, #dddddd 0%,#ffffff 100%);background: -o-linear-gradient(top, #dddddd 0%,#ffffff 100%);background: -ms-linear-gradient(top, #dddddd 0%,#ffffff 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#dddddd\', endColorstr=\'#ffffff\',GradientType=0 );background: linear-gradient(top, #dddddd 0%,#ffffff 100%);-webkit-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;-moz-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9; border-bottom: 1px solid #8B8B8B; border-left: 1px solid #8B8B8B; border-right: 1px solid #8B8B8B; border-top: 2px solid #DDD; }.glimpse-tabs li.glimpse-active { background: #dddddd;background: -moz-linear-gradient(top, #dddddd 0%, #efefef 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(100%,#efefef));background: -webkit-linear-gradient(top, #dddddd 0%,#efefef 100%);background: -o-linear-gradient(top, #dddddd 0%,#efefef 100%);background: -ms-linear-gradient(top, #dddddd 0%,#efefef 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#dddddd\', endColorstr=\'#efefef\',GradientType=0 );background: linear-gradient(top, #dddddd 0%,#efefef 100%);-webkit-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;-moz-box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9;box-shadow: inset 1px -1px 0px #F9F9F9, inset -1px 0px 0px #F9F9F9; border-bottom: 1px solid #8b8b8b; border-left: 1px solid #8b8b8b; border-right: 1px solid #8b8b8b; border-top: 2px solid #DDD; color: #000; padding: 4px 8px 3px; }.glimpse-tabs li.glimpse-disabled { color:#AAA; cursor:default; }.glimpse-panel-holder {}.glimpse-panel { display:none; overflow:auto; position:relative; } .glimpse-panel-message { text-align:center; padding-top:40px; font-size:1.1em; color:#AAA; }.glimpse-panel table { border-spacing:0; width:100%; }.glimpse-panel table td, .glimpse-panel table th { padding:3px 4px; text-align:left; vertical-align:top; } .glimpse-panel table td .glimpse-cell { vertical-align:top; } .glimpse-panel tbody .mono { font-family:Consolas, monospace, serif; font-size: 1.1em; } .glimpse-panel tr.glimpse-row-header-0 { height:19px; } .glimpse-panel .glimpse-row-header-0 th { background: #DFDFDF; background: -moz-linear-gradient(top, #f3f3f3 0%, #f3f3f3 5%, #e6e6e6 6%, #d1d1d1 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(5%,#f3f3f3), color-stop(6%,#e6e6e6), color-stop(100%,#d1d1d1)); background: -webkit-linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); background: -o-linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); background: -ms-linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#f3f3f3\', endColorstr=\'#d1d1d1\',GradientType=0 ); background: linear-gradient(top, #f3f3f3 0%,#f3f3f3 5%,#e6e6e6 6%,#d1d1d1 100%); border-bottom: 1px solid #9C9C9C; font-weight: bold; } .glimpse-panel .glimpse-row-header-0 th { border-left:1px solid #D9D9D9; border-right:1px solid #9C9C9C; } .glimpse-panel .glimpse-soft { color:#999; } .glimpse-panel .glimpse-cell-key { font-weight:bold; } .glimpse-panel th.glimpse-cell-key { width:30%; max-width:150px; } .glimpse-panel table table { border:1px solid #D9D9D9; } .glimpse-panel table table thead th { background: #f3f3f3; background: -moz-linear-gradient(top, #f3f3f3 0%, #e6e6e6 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#e6e6e6)); background: -webkit-linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); background: -o-linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); background: -ms-linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#f3f3f3\', endColorstr=\'#e6e6e6\',GradientType=0 ); background: linear-gradient(top, #f3f3f3 0%,#e6e6e6 100%); border-bottom: 1px solid #9C9C9C; } .glimpse-panel table table thead tr th { border-left:1px solid #C6C6C6; border-right:1px solid #D9D9D9; padding:1px 4px 2px 4px; }.glimpse-panel table table thead tr th:first-child { border-left:0px; }.glimpse-panel table table thead tr th:last-child { border-right:0px; }.glimpse-panel .even, .glimpse-panel .even > td, .glimpse-panel .even > th, .glimpse-panel .even > tr > td, .glimpse-panel .even > tr > th, .even > td > .glimpse-preview-table > tbody > tr > td, .even > tr > td > .glimpse-preview-table > tbody > tr > td { background-color:#F2F5F9; } .glimpse-panel .odd, .glimpse-panel .odd > td, .glimpse-panel .odd > th, .glimpse-panel .odd > tr > td, .glimpse-panel .odd > tr > th, .odd > td > .glimpse-preview-table > tbody > tr > td, .odd > tr > td > .glimpse-preview-table > tbody > tr > td { background-color:#FEFFFF; }.glimpse-panel table table tbody th { font-weight:normal; font-style:italic; }.glimpse-panel table table thead th { font-weight:bold; font-style:normal; }.glimpse-panel .glimpse-side-sub-panel { right:0; z-index:10; background-color:#FAFCFC; height:100%; width:25%; border-left:1px solid #ACA899; position:absolute; }.glimpse-panel .glimpse-side-main-panel { position:relative; height:100%; width:75%; float:left; } .glimpse-panel-holder .glimpse-active { display:block; }.glimpse-resizer { height:4px; cursor:n-resize; width:100%; position:absolute; top:-1px; }li.glimpse-permanent { font-style:italic; }.glimpse-preview-object { color:#006400; } .glimpse-preview-string, .glimpse-preview-object .glimpse-preview-string { color:#006400; font-weight:normal !important; } .glimpse-preview-string span { padding-left:1px; }.glimpse-preview-object span { font-weight:bold; color:#444; } .glimpse-preview-object span.start { margin-right:5px; } .glimpse-preview-object span.end { margin-left:5px; }.glimpse-preview-object span.rspace { margin-right:4px; }.glimpse-preview-object span.mspace { margin:0 4px; }.glimpse-preview-object span.small { font-size:0.95em; } .glimpse-panel .glimpse-preview-table { border:0; } .glimpse-panel .glimpse-preview-table .glimpse-preview-cell { padding-left:0; padding-right:2px; width:11px; } .glimpse-expand { height:11px; width:11px; display:inline-block; float:left; margin:1px 0 0 0; cursor:pointer; background-image:url(); background-repeat:no-repeat; background-position:-126px 0; }.glimpse-collapse { background-position:-126px -11px; }.glimpse-preview-show { display:none; font-weight:normal !important; }.glimpse-panel .quiet *, .glimpse-panel .ms * { color:#AAA; }.glimpse-panel .suppress { text-decoration:line-through; }.glimpse-panel .suppress * { color:#AAA; } .glimpse-panel .selected, .glimpse-panel .selected > td, .glimpse-panel .selected > th, .glimpse-panel .selected > tr > td, .glimpse-panel .selected > tr > th, .selected > td > .glimpse-preview-table > tbody > tr > td, .selected > tr > td > .glimpse-preview-table > tbody > tr > td { background-color:#FFFF99; }.glimpse-panel .selected * { color:#409B3B; }.glimpse .info .icon, .glimpse .warn .icon, .glimpse .loading .icon, .glimpse .error .icon, .glimpse .fail .icon, .glimpse .ms .icon { width:14px; height:14px; background-image:url(); background-repeat:no-repeat; display:inline-block; margin-right: 5px; } .glimpse .info .icon { background-position: -22px -22px; }.glimpse .warn .icon { background-position:-36px -22px; }.glimpse .loading .icon { background-position:-78px -22px; }.glimpse .error .icon { background-position:-50px -22px; }.glimpse .ms .icon { background-position:-181px -22px; } .glimpse .fail .icon { background-position:-64px -22px; }.glimpse .info * { color:#067CE5; }.glimpse .warn * { color:#FE850C; } .glimpse .error * { color:#B40000; }.glimpse .fail * { color:#B40000; font-weight:bold; }.glimpse-panelitem-Ajax .loading .icon { float:right; }.glimpse-panelitem-Remote .glimpse-side-sub-panel .loading, .glimpse-panelitem-Remote .glimpse-side-main-panel .loading, .glimpse-clear { position:fixed; bottom:5px; right:10px; color:#777; } .glimpse-panelitem-Remote .glimpse-side-main-panel .loading { right:27%; } .glimpse-clear { background-color:white; padding:0.3em 1em 0.5em 1em; border:#CCC solid 1px; bottom:25px; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; } .glimpse-panel table .glimpse-head-message td { text-align:center; background-color:#DDD; } .glimpse-panelitem-GlimpseInformation div { text-align:center; } .glimpse-panelitem-GlimpseInformation .glimpse-panel-message { padding-top:5px; } .glimpse-panelitem-GlimpseInformation strong { font-weight:bold; } .glimpse-panelitem-GlimpseInformation .glimpse-info-more { font-size:1.5em; margin:1em 0; } .glimpse-panelitem-GlimpseInformation .glimpse-info-quote { font-style:italic; margin:0.75em 0 3em; } .glimpse-pager { background: #C6C6C6; padding: 3px 4px; font-weight: bold; text-align: center; vertical-align: top; } .glimpse-pager .glimpse-pager-message { margin-left: 5px; margin-right: 5px; } .glimpse-pager .glimpse-button { margin-top: 0px; } .glimpse-pager .glimpse-pager-link, .glimpse-pager .glimpse-pager-link:hover { font-weight: bold; } .glimpse-pager .glimpse-pager-link-firstPage { background-position: -2px -38px; } .glimpse-pager .glimpse-pager-link-firstPage-disabled { background-position: -17px -38px; } .glimpse-pager .glimpse-pager-link-previousPage { background-position: -33px -38px; } .glimpse-pager .glimpse-pager-link-previousPage-disabled { background-position: -49px -38px; } .glimpse-pager .glimpse-pager-link-nextPage { background-position: -65px -38px; } .glimpse-pager .glimpse-pager-link-nextPage-disabled { background-position: -81px -38px; } .glimpse-pager .glimpse-pager-link-lastPage { background-position: -96px -38px; } .glimpse-pager .glimpse-pager-link-lastPage-disabled { background-position: -111px -38px; } .glimpse-panel .glimpse-sub-text { color: #AAA; font-size: 0.9em; margin-left: 5px; } .glimpse-panel table tr.glimpse-pager-separator td { border-bottom: 3px solid #C6C6C6; } @media screen and (-webkit-min-device-pixel-ratio:0) { .glimpse-tabs li.glimpse-hover, .glimpse-tabs li.glimpse-active { border-top:1px solid #DDD; } }';
+    glimpseCss += '.glimpse-panel .glimpse-tl-resizer { position:absolute; width:4px; height:100%; cursor:col-resize; } .glimpse-panel .glimpse-tl-row-summary { position:relative; height:100px; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-resizer-bar { background-color:#404040; width:1px; height:100%; margin-left:2px; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-resizer-handle { background-color:#404040; width:5px; height:20px; top:0; position:absolute; -webkit-border-radius:2px; -moz-border-radius:2px; border-radius:2px; } .glimpse-panel .glimpse-tl-row-spacer { background:#cfcfcf; background:-moz-linear-gradient(top, #cfcfcf 0%, #dddddd 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(100%,#dddddd)); background:-webkit-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background:-o-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); background:-ms-linear-gradient(top, #cfcfcf 0%,#dddddd 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#cfcfcf\', endColorstr=\'#dddddd\',GradientType=0 ); background:linear-gradient(top, #cfcfcf 0%,#dddddd 100%); -webkit-box-shadow:inset 0px 1px 0px 0px #E2E2E2; -moz-box-shadow:inset 0px 1px 0px 0px #E2E2E2; box-shadow:inset 0px 1px 0px 0px #E2E2E2; border-top:1px solid #7A7A7A; border-bottom:1px solid #7A7A7A; height:5px; } .glimpse-panel .glimpse-tl-col-side { position:absolute;width:200px; height:100%; left:0px; } .glimpse-panel .glimpse-tl-col-main { position:absolute; left:200px; right:0px; top:0px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-col-side { border-right:1px solid #404040; } .glimpse-panel .glimpse-tl-row-content { position:relative; height:400px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-resizer { left:200px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-resizer div { background-color:#404040; width:1px; height:100%; } .glimpse-panel .glimpse-tl-band{ padding-top:2px; padding-bottom:2px; } .glimpse-panel .glimpse-tl-col-side .glimpse-tl-band { padding-top:2px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; padding-left:5px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; } .glimpse-panel .glimpse-tl-band { position:relative; height:18px; padding:0px; } .glimpse-panel .glimpse-tl-col-main .glimpse-tl-event { position:absolute; top:4px; margin-left:-2px; } .glimpse-panel .glimpse-tl-band-title { height:20px !important; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; font-weight:bold; padding-top:4px; } .glimpse-panel .glimpse-tl-event { border-radius:4px; width:7px; height:7px; display:inline-block; margin:0 5px 0 2px; background:-moz-linear-gradient(top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 70%, rgba(0,0,0,0.5) 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.7)), color-stop(40%,rgba(255,255,255,0)), color-stop(70%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,0.5))); background:-webkit-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); background:-o-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); background:-ms-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); background:linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 70%,rgba(0,0,0,0.5) 100%); } .glimpse-panel .glimpse-tl-col-main .glimpse-tl-event { width:1%; min-width:3px; } .glimpse-panel .glimpse-tl-event-info { position:absolute; top:1px; padding:0.75em; border:1px solid rgba(0, 0, 0, 0.3); background-color:#FCF7BD; display:none; -webkit-border-radius:15px; -moz-border-radius:15px; border-radius:15px; -webkit-box-shadow:0px 0px 8px 0px #696969; -moz-box-shadow:0px 0px 8px 0px #696969; box-shadow:0px 0px 8px 0px #696969; } .glimpse-panel .glimpse-tl-event-info th { font-weight:bold; text-align:right; } .glimpse-panel .glimpse-tl-event-info .glimpse-tl-event-info-title { text-align:left; border-bottom:1px solid rgba(0, 0, 0, 0.3); } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-event-holder { margin-left:3px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-event-holder { margin-left:15px; } .glimpse-panel .glimpse-tl-event-holder-inner { position:absolute; left:0px; right:0px; margin-left:4px; } .glimpse-panel .glimpse-tl-event-desc-sub { color:#AAA; font-size:0.9em; margin-left:5px; } .glimpse-panel .glimpse-tl-event-overlay { display:none; position:absolute; height:18px; width:7px; } .glimpse-panel .glimpse-tl-event-overlay-lh { position:absolute; left:0; width:1px; } .glimpse-panel .glimpse-tl-event-overlay-li { position:absolute; right:-2px; font-size:0.8em; top:7px; background:url() no-repeat -31px -17px; width:11px; height:3px; } .glimpse-panel .glimpse-tl-event-overlay-lt { position:absolute; right:15px; font-size:0.8em; top:2px; color:rgba(0, 0, 0, 0.75); } .glimpse-panel .glimpse-tl-event-overlay-rh { position:absolute; right:0; width:1px; } .glimpse-panel .glimpse-tl-event-overlay-ri { position:absolute; left:-4px; font-size:0.8em; top:7px; background:url() no-repeat -44px -17px; width:11px; height:3px; } .glimpse-panel .glimpse-tl-event-overlay-rt { font-size:0.8em; position:absolute; top:2px; left:11px; color:rgba(0, 0, 0, 0.75); } .glimpse-panel .glimpse-tl-event-overlay-c { font-size:0.9em; text-align:center; padding-top:1px; color:rgba(0, 0, 0, 0.75); font-weight:bold; } .glimpse-panel .glimpse-tl-content-scroll { overflow-y:scroll; overflow-x:hidden; width:100%; position:absolute; height:100%; } .glimpse-panel .glimpse-tl-padding-holder { right:18px; } .glimpse-panel .glimpse-tl-padding { position:absolute; width:0; top:0; bottom:0; background-color:rgba(0, 0, 0, 0.3); } .glimpse-panel .glimpse-tl-padding-l { left:0; border-left:1px solid #555; } .glimpse-panel .glimpse-tl-padding-r { right:0; border-right:1px solid #555; } .glimpse-panel .glimpse-tl-divider-line-holder { position:absolute; height:100%; top:0; right:0; } .glimpse-panel .glimpse-tl-divider { position:absolute; width:1px; top:0; bottom:0; background-color:rgba(0, 0, 0, 0.1); } .glimpse-panel .glimpse-tl-divider div { position:absolute; top:4px; right:5px; font-size:9px; color:#323232; white-space:nowrap; } .glimpse-panel .glimpse-tl-divider-title-bar { width:100%; background-color:rgba(255, 255, 255, 0.8); border-bottom:1px solid rgba(0, 0, 0, 0.3); height:20px; } .glimpse-panel .glimpse-tl-divider-zero-holder { position:absolute; height:100%; top:0; right:0; left:0; } .glimpse-panel .glimpse-tl-divider-zero-holder .glimpse-tl-divider { left:15px } .glimpse-panel .glimpse-tl-content-scroll .glimpse-tl-divider div { display:none; }  .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-divider-holder { right:19px; height:20px; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-content-scroll .glimpse-tl-divider-holder { right:-1px; margin-left:1px; height:100%; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-content-overlay .glimpse-tl-divider-holder { right:16px; height:20px; border-left:1px solid #404040; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-divider-line-holder { left:0; } .glimpse-panel .glimpse-tl-row-content .glimpse-tl-divider-line-holder { left:15px; } .glimpse-panel .glimpse-tl-resizer-holder { right:17px; } .glimpse-panel .glimpse-tl-resizer-l { left:0px; margin-left:-2px; } .glimpse-panel .glimpse-tl-resizer-r { right:0px; } .glimpse-panel .glimpse-tl-col-side { background-color:#F2F5F7; } .glimpse-panel .glimpse-tl-col-side .odd, .glimpse-panel .glimpse-tl-col-side .odd > td { background-color:#F2F5F7; } .glimpse-panel .glimpse-tl-col-side .even, .glimpse-panel .glimpse-tl-col-side .even > td { background-color:#E1E7F0; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-band-title { opacity:0.9; } .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-event-desc-group .glimpse-tl-band { opacity:0.95; }  .glimpse-panel .glimpse-tl-row-summary .glimpse-tl-event-desc-group input { margin-right:5px; float:right; display:none; } .glimpse-panel .glimpse-tl-band-title span { font-weight: normal; font-size: 0.8em; margin-left: 1em; cursor: pointer; }';
     glimpseCss = glimpseCss.replace(/url\(\)/gi, 'url(' + glimpsePath + 'sprite.png)'); 
     $('<style type="text/css"> ' + glimpseCss + ' </style>').appendTo("head");      //http://stackoverflow.com/questions/1212500/jquery-create-css-rule-class-runtime
 
@@ -620,6 +620,11 @@ if (window.jQueryGlimpse) { (function ($) {
                 replace: function (d) { return '<strong>' + $.glimpse.util.htmlEncode($.glimpseContent.scrub(d)) + '</strong>'; },
                 trimmable: true
             },
+            sub: {
+                match: function (d) { return d.indexOf('|(') >= 0 && d.indexOf(')|') >= 0; },
+                replace: function (d) { return $.glimpse.util.htmlEncode(d).replace('|()|', '').replace('|(', '<span class="glimpse-sub-text">(').replace(')|', ')</span>'); },
+                trimmable: true
+            },
             raw: {
                 match: function (d) { return d.match(/^\![\w\D]+\!$/) != null; },
                 replace: function (d) { return $.glimpseContent.scrub(d); },
@@ -832,9 +837,7 @@ if (window.jQueryGlimpse) { (function ($) {
         init: function (data) {
             var g = $.glimpse, static = g.static;
             g.clientName = $.glimpse.util.cookie('glimpseClientName');
-
-            var start = (new Date).getTime();
-
+            
             static.isPopup = window.location.href.indexOf(static.popupUrl) > -1;
 
             if (!data) {
@@ -869,12 +872,7 @@ if (window.jQueryGlimpse) { (function ($) {
             g.restoreState();
 
             if (!static.isPopup && g.settings.popupOn)
-                g.popup.open();
-
-                
-            /* Run a test. */
-            var diff = (new Date).getTime() - start;
-            console.log(diff);
+                g.popup.open(); 
         },
         plugins: {
             protocolListeners: [],
@@ -1854,15 +1852,20 @@ if (window.jQueryGlimpse) { (function ($) {
         },
         loadPageData: function (key, pageIndex, pagerType, data) {
             var that = this;
-            var g = $.glimpse, metaData = g.static.data._metadata, pagingInfo = null;
-            if (metaData != undefined && (metaData = metaData.plugins[key]) != undefined && (pagingInfo = metaData.pagingInfo) != undefined) {
-                pagingInfo.pageIndex = pageIndex;
+            var g = $.glimpse, metaData = g.static.data._metadata, structure = null, pagingInfo = null;
+            if (metaData != undefined && (metaData = metaData.plugins[key]) != undefined) {
+                if ((metaData.structure) != undefined) {
+                    structure = metaData.structure;
+                }
+                if ((pagingInfo = metaData.pagingInfo) != undefined) {
+                    pagingInfo.pageIndex = pageIndex;
+                }
             }
 
             var mainHolder = g.static.panelHolder();
             var panelItem = $('.glimpse-panelitem-' + key, mainHolder);
             var pager = $.glimpsePagerFactory.getPager(pagerType);
-            pager.loadPageData(panelItem, data);
+            pager.loadPageData(panelItem, data, structure);
 
             that.refresh(key);
         },
@@ -1928,8 +1931,8 @@ if (window.jQueryGlimpse) { (function ($) {
                         pagerLastPageLink.addClass('glimpse-pager-link-lastPage-disabled');
                     }
                 },
-                loadPageData: function (panelItem, data) {
-                    var content = $.glimpseProcessor.build(data, 0);
+                loadPageData: function (panelItem, data, structure) {
+                    var content = $.glimpseProcessor.build(data, 0, true, structure, 1);
                     panelItem.html(content);
                 }
             },
@@ -1943,22 +1946,29 @@ if (window.jQueryGlimpse) { (function ($) {
                     pagerContainer.append(pagerMessage);
 
                     if (pageIndex < pageIndexLast) {
-                        var pagerNextPageLink = $('<a href="#" class="glimpse-pager-link">Load the next page</a>');
+                        var pagerNextPageLink = $('<a href="#" class="glimpse-pager-link">More</a>');
                         pagerNextPageLink.one('click', function () { $.glimpsePager.loadPage(key, pagerKey, pagerType, pageIndex + 1); return false; });
                         pagerContainer.append(pagerNextPageLink);
                     }
                 },
-                loadPageData: function (panelItem, data) {
-                    var content = $.glimpseProcessor.build(data, 0);
+                loadPageData: function (panelItem, data, structure) {
+                    var content = $.glimpseProcessor.build(data, 0, true, structure, 1);
                     panelItem.append(content);
-
-                    var pages = panelItem.find('table');
-                    pages.not(':first').find('thead').remove();
-                    pages.not(':last').addClass('glimpse-pager-separator');
-
+                    
+                    var firstPage = panelItem.find('table:first');
                     var lastPage = panelItem.find('table:last');
-                    if (lastPage.length > 0) {
-                        var lastPageTop = lastPage.offset().top - panelItem.offset().top;
+                    if (firstPage.length > 0 && lastPage.length > 0) {
+                        var firstPageRowSeparator = firstPage.find('tr:last');
+                        firstPageRowSeparator.addClass('glimpse-pager-separator');
+
+                        var lastPageRows = lastPage.find('tbody tr');
+                        $.each(lastPageRows, function (index, row) {
+                            firstPage.append($(row).clone());
+                        });
+
+                        lastPage.remove();
+
+                        var lastPageTop = firstPageRowSeparator.offset().top - panelItem.offset().top;
                         panelItem.animate({ scrollTop: '+=' + lastPageTop + 'px' }, 500);
                     }
                 }
@@ -1991,13 +2001,23 @@ if (window.jQueryGlimpse) { (function ($) {
                         }
                     }
                 },
-                loadPageData: function (panelItem, data) {
-                    var content = $.glimpseProcessor.build(data, 0);
+                loadPageData: function (panelItem, data, structure) {
+                    var content = $.glimpseProcessor.build(data, 0, true, structure, 1);
                     panelItem.append(content);
 
-                    var pages = panelItem.find('table');
-                    pages.not(':first').find('thead').remove();
-                    pages.not(':last').addClass('glimpse-pager-separator');
+                    var firstPage = panelItem.find('table:first');
+                    var lastPage = panelItem.find('table:last');
+                    if (firstPage.length > 0 && lastPage.length > 0) {
+                        var firstPageRowSeparator = firstPage.find('tr:last');
+                        firstPageRowSeparator.addClass('glimpse-pager-separator');
+
+                        var lastPageRows = lastPage.find('tbody tr');
+                        $.each(lastPageRows, function (index, row) {
+                            firstPage.append($(row).clone());
+                        });
+
+                        lastPage.remove();
+                    }
                 }
             }
         }
@@ -2048,7 +2068,7 @@ if (window.jQueryGlimpse) { (function ($) {
                     dropFunction(envHolder);
                 }
             }
-             
+               
             //Setup correlation
             if (correlation) { 
                 var urlHolder = $('.glimpse-title .glimpse-url', mainHolder), currentUrl = urlHolder.text(), currentLeg, correlationList = '<div>' + correlation.title + '</div>';
@@ -2070,7 +2090,7 @@ if (window.jQueryGlimpse) { (function ($) {
             }
         },
         switchContext: function(glimpseRequestId, glimpseRequestUrl, glimpseClientName) {
-            var gs = this, loading = $('.glimpse-url .glimpse-drop-over .loading').fadeIn();
+            var gs = this, g = $.glimpse, loading = $('.glimpse-url .glimpse-drop-over .loading').fadeIn();
             
             $.ajax({
                 url: gs.defaults.historyLink,
@@ -2078,8 +2098,12 @@ if (window.jQueryGlimpse) { (function ($) {
                 data: { 'ClientRequestID': glimpseRequestId },
                 contentType: 'application/json',
                 success: function (result) {
+                    var resultData = eval('(' + result.Data[glimpseRequestId].Data + ')'); 
+                    resultData._metadata.request.correlation = g.static.data._metadata.request.correlation;
+
                     loading.fadeOut();
-                    $.glimpse.refresh(eval('(' + result.Data[glimpseRequestId].Data + ')'), $.glimpseProcessor.buildHeading(glimpseRequestUrl, glimpseClientName, gs.defaults.key));
+
+                    $.glimpse.refresh(resultData, $.glimpseProcessor.buildHeading(glimpseRequestUrl, glimpseClientName, gs.defaults.key));
                     $('.glimpse').trigger('glimpse.request.change', ['correlation']);
                 }
             });
@@ -2180,6 +2204,7 @@ var glimpseTimeline = function (scope, settings) {
             elements.contentBandHolder = elements.contentRow.find('.glimpse-tl-band-group');
             elements.contentEventHolder = elements.contentRow.find('.glimpse-tl-event-group');
             elements.contentDescHolder = elements.contentRow.find('.glimpse-tl-event-desc-group');
+            elements.contentTableHolder = elements.contentRow.find('.glimpse-tl-table-holder');
 
             elements.summaryBandHolder = elements.summaryRow.find('.glimpse-tl-band-group');
             elements.summaryEventHolder = elements.summaryRow.find('.glimpse-tl-event-group'); 
@@ -2201,7 +2226,7 @@ var glimpseTimeline = function (scope, settings) {
         },
         builder = function () {
             var init = function() {
-                scope.html('<div class="glimpse-timeline"><div class="glimpse-tl-row-summary"><div class="glimpse-tl-content-scroll"><div class="glimpse-tl-event-desc-holder glimpse-tl-col-side"><div class="glimpse-tl-band glimpse-tl-band-title">Categories</div><div class="glimpse-tl-event-desc-group"></div></div><div class="glimpse-tl-band-holder glimpse-tl-col-main"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-band-group"></div></div><div class="glimpse-tl-event-holder glimpse-tl-col-main"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-event-group"></div></div></div><div class="glimpse-tl-padding-holder glimpse-tl-col-main"><div class="glimpse-tl-padding glimpse-tl-padding-l glimpse-tl-summary-height"></div><div class="glimpse-tl-padding glimpse-tl-padding-r glimpse-tl-summary-height"></div></div><div class="glimpse-tl-divider-holder glimpse-tl-col-main"><div class="glimpse-tl-divider-title-bar"></div><div class="glimpse-tl-divider-line-holder"></div></div><div class="glimpse-tl-resizer-holder glimpse-tl-col-main"><div class="glimpse-tl-resizer glimpse-tl-resizer-l glimpse-tl-summary-height"><div class="glimpse-tl-resizer-bar"></div><div class="glimpse-tl-resizer-handle"></div></div><div class="glimpse-tl-resizer glimpse-tl-resizer-r glimpse-tl-summary-height"><div class="glimpse-tl-resizer-bar"></div><div class="glimpse-tl-resizer-handle"></div></div></div></div><div class="glimpse-tl-row-spacer"></div><div class="glimpse-tl-row-content"><div class="glimpse-tl-content-scroll"><div class="glimpse-tl-band-holder glimpse-tl-col-main"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-band-group"></div></div><div class="glimpse-tl-divider-holder glimpse-tl-col-main"><div class="glimpse-tl-divider-zero-holder"><div class="glimpse-tl-divider"></div></div><div class="glimpse-tl-divider-line-holder"></div></div><div class="glimpse-tl-event-holder glimpse-tl-col-main"><div class="glimpse-tl-event-holder-inner"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-event-group"></div></div></div><div class="glimpse-tl-event-desc-holder glimpse-tl-col-side"><div class="glimpse-tl-band glimpse-tl-band-title">Events</div><div class="glimpse-tl-event-desc-group"></div></div></div><div class="glimpse-tl-content-overlay"><div class="glimpse-tl-divider-holder glimpse-tl-col-main"><div class="glimpse-tl-divider-title-bar"></div><div class="glimpse-tl-divider-zero-holder"><div class="glimpse-tl-divider"><div>0</div></div></div><div class="glimpse-tl-divider-line-holder"></div></div></div><div class="glimpse-tl-resizer"><div></div></div></div><div class="glimpse-tl-event-info"></div></div>');
+                scope.html('<div class="glimpse-timeline"><div class="glimpse-tl-row-summary"><div class="glimpse-tl-content-scroll"><div class="glimpse-tl-event-desc-holder glimpse-tl-col-side"><div class="glimpse-tl-band glimpse-tl-band-title">Categories<span>[Switch view]</span></div><div class="glimpse-tl-event-desc-group"></div></div><div class="glimpse-tl-band-holder glimpse-tl-col-main"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-band-group"></div></div><div class="glimpse-tl-event-holder glimpse-tl-col-main"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-event-group"></div></div></div><div class="glimpse-tl-padding-holder glimpse-tl-col-main"><div class="glimpse-tl-padding glimpse-tl-padding-l glimpse-tl-summary-height"></div><div class="glimpse-tl-padding glimpse-tl-padding-r glimpse-tl-summary-height"></div></div><div class="glimpse-tl-divider-holder glimpse-tl-col-main"><div class="glimpse-tl-divider-title-bar"></div><div class="glimpse-tl-divider-line-holder"></div></div><div class="glimpse-tl-resizer-holder glimpse-tl-col-main"><div class="glimpse-tl-resizer glimpse-tl-resizer-l glimpse-tl-summary-height"><div class="glimpse-tl-resizer-bar"></div><div class="glimpse-tl-resizer-handle"></div></div><div class="glimpse-tl-resizer glimpse-tl-resizer-r glimpse-tl-summary-height"><div class="glimpse-tl-resizer-bar"></div><div class="glimpse-tl-resizer-handle"></div></div></div></div><div class="glimpse-tl-row-spacer"></div><div class="glimpse-tl-row-content"><div class="glimpse-tl-content-scroll"><div class="glimpse-tl-band-holder glimpse-tl-col-main"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-band-group"></div></div><div class="glimpse-tl-divider-holder glimpse-tl-col-main"><div class="glimpse-tl-divider-zero-holder"><div class="glimpse-tl-divider"></div></div><div class="glimpse-tl-divider-line-holder"></div></div><div class="glimpse-tl-event-holder glimpse-tl-col-main"><div class="glimpse-tl-event-holder-inner"><div class="glimpse-tl-band glimpse-tl-band-title"></div><div class="glimpse-tl-event-group"></div></div></div><div class="glimpse-tl-event-desc-holder glimpse-tl-col-side"><div class="glimpse-tl-band glimpse-tl-band-title">Events</div><div class="glimpse-tl-event-desc-group"></div></div></div><div class="glimpse-tl-content-overlay"><div class="glimpse-tl-divider-holder glimpse-tl-col-main"><div class="glimpse-tl-divider-title-bar"></div><div class="glimpse-tl-divider-zero-holder"><div class="glimpse-tl-divider"><div>0</div></div></div><div class="glimpse-tl-divider-line-holder"></div></div></div><div class="glimpse-tl-resizer"><div></div></div><div class="glimpse-tl-content-scroll" style="display:none"><div class="glimpse-tl-table-holder"></div></div></div><div class="glimpse-tl-event-info"></div></div>');
             };
 
             return {
@@ -2279,7 +2304,34 @@ var glimpseTimeline = function (scope, settings) {
                     processCategories();
                     processEvents();
                     processEventSummary();
-                    colorRows();
+                    processTableData();
+                    //colorRows(true);
+                    view.start();
+                },
+                processTableData = function () {
+                    var dataResult = [ [ 'Title', 'Description', 'Category', 'Timing', 'Start Point', 'Duration', 'w/out Children' ] ],
+                        metadata = [ [ { data : '{{0}} |({{1}})|' }, { data : 2, width : '18%' }, { data : 3, width : '9%' }, { data : 4, align : 'right', pre : 'T+ ', post : ' ms', className : 'mono', width : '100px' }, { data : 5, align : 'right', post : ' ms', className : 'mono', width : '100px' }, { data : 6, align : 'right', post : ' ms', className : 'mono', width : '100px' } ] ];
+                    
+                    //Massage the data 
+                    for (var i = 0; i < settings.events.length; i++) {
+                        var event = settings.events[i],
+                            data = [ event.title, event.subText, event.category, '', event.startPoint, event.duration, event.childlessDuration ];
+                        dataResult.push(data);
+                    } 
+
+                    //Insert it into the document
+                    var result = $.glimpseProcessor.build(dataResult, 0, true, metadata, false); 
+                    elements.contentTableHolder.append(result);
+
+                    //Update the output 
+                    elements.contentTableHolder.find('tbody tr').each(function(i) {
+                        var row = $(this),
+                            event = settings.events[i],  
+                            category = settings.category[event.category];
+                             
+                        row.find('td:first-child').prepend($('<div class="glimpse-tl-event"></div>').css({ 'backgroundColor' : category.eventColor, marginLeft : (15 * event.nesting) + 'px', 'border' : '1px solid ' + category.eventColorHighlight }));
+                        row.find('td:nth-child(3)').css('position', 'relative').prepend($('<div class="glimpse-tl-event"></div>').css({ 'backgroundColor' : category.eventColor, 'border' : '1px solid ' + category.eventColorHighlight, 'margin-left' : event.startPersent + '%', width : event.widthPersent + '%' })); 
+                    }); 
                 },
                 processCategories = function () {
                     for (var categoryName in settings.category) {
@@ -2291,22 +2343,47 @@ var glimpseTimeline = function (scope, settings) {
                         category.events = {};
                     }
                 },
-                processEvents = function () {
+                processEvents = function () { 
+                    var eventStack = [], lastEvent = { startPoint : 0, duration : 0, childlessDuration : 0 };
                     for (var i = 0; i < settings.events.length; i += 1) {
-                        var event = settings.events[i], 
-                            category = settings.category[event.category], 
-                            left = (event.startPoint / settings.duration) * 100, 
+                        var event = settings.events[i],
+                            topEvent = eventStack.length > 0 ? eventStack[eventStack.length - 1] : undefined,
+                            category = settings.category[event.category],
+                            left = (event.startPoint / settings.duration) * 100,
                             rLeft = Math.round(left),
-                            width = (event.duration / settings.duration) * 100, 
+                            width = (event.duration / settings.duration) * 100,
                             rWidth = Math.round(width),
                             widthStyle = (width > 0 ? 'width:' + width + '%' : ''),
                             maxStyle = (width <= 0 ? 'max-width:7px;' : ''),
-                            subText = (event.subText ? '<span class="glimpse-tl-event-desc-sub">(' + event.subText + ')</span>' : '');
+                            subTextPre = (event.subText ? '(' + event.subText + ')' : ''),
+                            subText = (subTextPre ? '<span class="glimpse-tl-event-desc-sub">' + subTextPre + '</span>' : ''),
+                            stackParsed = false;
+                             
+                        //Derive event nesting  
+                        while (!stackParsed) {
+                            if (event.startPoint > lastEvent.startPoint && (event.startPoint + event.duration) <= (lastEvent.startPoint + lastEvent.duration)) {
+                                eventStack.push(lastEvent); 
+                                stackParsed = true;
+                            }
+                            else if (topEvent != undefined && (topEvent.startPoint + topEvent.duration) < (event.startPoint + event.duration)) {
+                                eventStack.pop(); 
+                                topEvent = eventStack.length > 0 ? eventStack[eventStack.length - 1] : undefined; 
+                                stackParsed = false;
+                            }
+                            else
+                                stackParsed = true;
+                        }
+                        
+                        //Work out childless timings 
+                        var temp = eventStack.length > 0 ? eventStack[eventStack.length - 1] : undefined; 
+                        if (temp) { temp.childlessDuration -= event.duration; } 
 
                         //Save calc data
+                        event.childlessDuration = event.duration;
                         event.startPersent = left;
                         event.endPersent = left + width;
                         event.widthPersent = width;
+                        event.nesting = eventStack.length;
 
                         //Build up the event decoration
                         var eventDecoration = '';
@@ -2319,10 +2396,12 @@ var glimpseTimeline = function (scope, settings) {
                         //Add main event HTML to DOM
                         elements.contentBandHolder.append('<div class="glimpse-tl-band"></div>');
                         elements.contentEventHolder.append('<div class="glimpse-tl-band"><div class="glimpse-tl-event" style="background-color:' + category.eventColor + ';border:1px solid ' + category.eventColorHighlight + ';left:' + left + '%;' + widthStyle + maxStyle + '"></div>'+ eventDecoration +'</div>');
-                        elements.contentDescHolder.append('<div class="glimpse-tl-band"><div class="glimpse-tl-event" style="background-color:' + category.eventColor + ';border:1px solid ' + category.eventColorHighlight + '"></div>' + event.title + subText +'</div>');
+                        elements.contentDescHolder.append('<div class="glimpse-tl-band" title="' + event.title + ' ' + subTextPre + '"><div class="glimpse-tl-event" style="background-color:' + category.eventColor + ';border:1px solid ' + category.eventColorHighlight + '"></div>' + event.title + subText +'</div>');
                      
                         //Register events for summary  
-                        deriveEventSummary(category, left, rLeft, width, rWidth)
+                        deriveEventSummary(category, left, rLeft, width, rWidth);
+                        
+                        lastEvent = event;
                     }
                 },
                 deriveEventSummary = function (category, left, rLeft, width, rWidth) {
@@ -2368,16 +2447,18 @@ var glimpseTimeline = function (scope, settings) {
                         if (startData) { addCategoryEvent(category, startData.left, events[next - 1].right); } 
                     }
                 },
-                colorRows = function () { 
-                    //TODO: only do this logic for visable rows
-                    elements.contentBandHolder.find('> div:even').addClass('even');
-                    elements.contentBandHolder.find('> div:odd').addClass('odd');
-                    elements.contentDescHolder.find('> div:even').addClass('even');
-                    elements.contentDescHolder.find('> div:odd').addClass('odd');
-                    elements.summaryBandHolder.find('> div:even').addClass('even');
-                    elements.summaryBandHolder.find('> div:odd').addClass('odd');
-                    elements.summaryDescHolder.find('> div:even').addClass('even');
-                    elements.summaryDescHolder.find('> div:odd').addClass('odd');
+                colorRows = function (applyAll) { 
+                    var filter = applyAll ? '' : ':visible';
+                    colorElement(elements.contentBandHolder.find('> div'), filter);
+                    colorElement(elements.contentDescHolder.find('> div'), filter);
+                    colorElement(elements.summaryBandHolder.find('> div'), filter);
+                    colorElement(elements.summaryDescHolder.find('> div'), filter);
+                    colorElement(elements.contentTableHolder.find('tbody'), filter); 
+                },
+                colorElement = function (scope, filter) {
+                    scope.removeClass('odd').removeClass('even');
+                    scope.filter(filter + ':even').addClass('even');
+                    scope.filter(filter + ':odd').addClass('odd');
                 },
                 categoryEvents = function (item) {
                     //Handel how the UI will look
@@ -2489,7 +2570,7 @@ var glimpseTimeline = function (scope, settings) {
             var criteria = { 
                     persentLeft : 0, 
                     persentRightFromLeft : 100, 
-                    hiddenCategories : {}
+                    hiddenCategories : undefined
                 },
                 search = function (c) {
                     //Go through each event doing executing search
@@ -2497,11 +2578,14 @@ var glimpseTimeline = function (scope, settings) {
                         var event = settings.events[i],
                             show = !(c.persentLeft > event.endPersent 
                                     || c.persentRightFromLeft < event.startPersent)
-                                    && c.hiddenCategories[event.category] != undefined;
+                                    && (c.hiddenCategories == undefined || c.hiddenCategories[event.category] == true);
 
+                        //Timeline elements
                         elements.contentBandHolder.find('.glimpse-tl-band').eq(i).toggle(show);
                         elements.contentEventHolder.find('.glimpse-tl-band').eq(i).toggle(show);
                         elements.contentDescHolder.find('.glimpse-tl-band').eq(i).toggle(show); 
+                        //Table elements
+                        elements.contentTableHolder.find('tbody').eq(i).toggle(show); 
                     }
 
                     //Recolourize rows 
@@ -2549,7 +2633,7 @@ var glimpseTimeline = function (scope, settings) {
                     for (detailKey in event.details) {
                         details += '<tr><th>' + detailKey + '</th><td>' + event.details[detailKey] + '</td></tr>';
                     }
-                    return '<table><tr><th colspan="2"><div class="glimpse-tl-event-info-title"><div class="glimpse-tl-event" style="background-color:' + category.eventColor + ';border:1px solid ' + category.eventColorHighlight + '"></div>' + event.title + ' - Details</div></th></tr><tr><th>Duration</th><td>' + event.duration + 'ms (at ' + event.startPoint + 'ms' + ( + event.duration > 1 ? (' to ' + (event.startPoint + event.duration) + 'ms') : '' ) +')</td></tr>' + (event.subText ? '<tr><th>Details</th><td>' + event.subText + '</td></tr>' : '' ) + details + '</table>';
+                    return '<table><tr><th colspan="2"><div class="glimpse-tl-event-info-title"><div class="glimpse-tl-event" style="background-color:' + category.eventColor + ';border:1px solid ' + category.eventColorHighlight + '"></div>' + event.title + ' - Details</div></th></tr><tr><th>Duration</th><td>' + event.duration + 'ms (at ' + event.startPoint + 'ms' + ( + event.duration > 1 ? (' to ' + (event.startPoint + event.duration) + 'ms') : '' ) +')</td></tr>' + (event.duration != event.childlessDuration ? '<tr><th>w/out Children</th><td>' + event.childlessDuration + 'ms</td></tr>' : '') + (event.subText ? '<tr><th>Details</th><td>' + event.subText + '</td></tr>' : '' ) + details + '</table>';
                 },
                 updateBubble = function (item) {
                     var eventOffset = item.offset(), 
@@ -2607,7 +2691,7 @@ var glimpseTimeline = function (scope, settings) {
                 },
                 containerResize = function (height) { 
                     //Work out what heihgt we can work with
-                    var contentHeight = height - (elements.summaryRow.height() + scope.find('.glimpse-tl-row-spacer').height() + 1);  
+                    var contentHeight = height - (elements.summaryRow.height() + scope.find('.glimpse-tl-row-spacer').height() + 2);  
                     elements.contentRow.height(contentHeight + 'px');
                     
                     //Render Divers
@@ -2628,6 +2712,39 @@ var glimpseTimeline = function (scope, settings) {
                 init : init
             };
         }(),
+        view = function () {
+            var apply = function(showTimeline, isFirst) {
+                    elements.contentTableHolder.parent().toggle(!showTimeline); 
+                    elements.contentRow.find('.glimpse-tl-content-scroll:first-child').toggle(showTimeline);
+                    elements.contentRow.find('.glimpse-tl-resizer').toggle(showTimeline); 
+                    
+                    eventBuilder.colorRows(isFirst); 
+                    if (showTimeline) 
+                        dividerBuilder.render();
+                },
+                toggle = function() {
+                    var showTimeline = !($.glimpse.settings.timeView);
+
+                    apply(showTimeline);
+                 
+                    $.glimpse.settings.timeView = showTimeline;
+                    $.glimpse.persistState();
+                },
+                start = function() {
+                    apply($.glimpse.settings.timeView, true);
+                },
+                init = function() { 
+                    elements.summaryRow.find('.glimpse-tl-band-title span').click(function () {
+                        toggle(); 
+                    });
+                };
+
+            return { 
+                toggle : toggle,
+                start : start,
+                init : init
+            };
+        } (),
         init = function () { 
             //Set defaults
             settings.startTime = 0;
@@ -2646,9 +2763,10 @@ var glimpseTimeline = function (scope, settings) {
             filter.init();
             info.init();
             resize.init();
+            view.init();
              
             //Render events 
-            eventBuilder.render(); 
+            eventBuilder.render();  
         };
 
     return {  
@@ -2660,37 +2778,7 @@ var glimpseTimeline = function (scope, settings) {
 };
 
 //TODO this is to  be removed
-var glimpseTimelineData = {
-    events :[
-        { category :'ASPNET', startTime :'', startPoint :0, duration :0, title :'Request Begin', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'ASPNET', startTime :'', startPoint :2, duration :11, title :'Http Handlers', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'ASPNET', startTime :'', startPoint :15, duration :0, title :'Process Pipeline', subText :'', pluginContextId :'', plugin :'', details :{ 'Hello World' :'This is data', 'Jester' :'Hello there' } },
-        { category :'Database', startTime :'', startPoint :20, duration :0, title :'Connection', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'MVC', startTime :'', startPoint :25, duration :15, title :'Action', subText :'Person/Add', pluginContextId :'', plugin :'', details :{} },
-        { category :'Database', startTime :'', startPoint :55, duration :0, title :'Command', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'MVC', startTime :'', startPoint :60, duration :20, title :'Filter', subText :'Authorization', pluginContextId :'', plugin :'', details :{} },
-        { category :'MVC', startTime :'', startPoint :75, duration :35, title :'Filter', subText :'Validation', pluginContextId :'', plugin :'', details :{} },
-        { category :'Database', startTime :'', startPoint :80, duration :45, title :'Transaction', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Trace', startTime :'', startPoint :130, duration :0, title :'Logon', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Routes', startTime :'', startPoint :134, duration :0, title :'Resolved Routes', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Trace', startTime :'', startPoint :138, duration :0, title :'Registered', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Trace', startTime :'', startPoint :142, duration :0, title :'Socket Open', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Routes', startTime :'', startPoint :143, duration :5, title :'Partial View', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Database', startTime :'', startPoint :150, duration :0, title :'Command', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Routes', startTime :'', startPoint :152, duration :8, title :'Partial View', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'MVC', startTime :'', startPoint :160, duration :36, title :'View', subText :'', pluginContextId :'', plugin :'', details :{} },
-        { category :'Trace', startTime :'', startPoint :195, duration :29, title :'Process Workflow', subText :'', pluginContextId :'', plugin :'', details :{} }
-    ],
-    category :{
-        'ASPNET' : { eventColor : '#FD4545', eventColorHighlight : '#DD3131' },
-        'Database' : { eventColor : '#AF78DD', eventColorHighlight : '#823BBE' }, //:{ event:'purple' },
-        'MVC' : { eventColor : '#72A3E4', eventColorHighlight : '#5087CF' }, //{ event:'blue' },
-        'Trace' : { eventColor : '#FDBF45', eventColorHighlight : '#DDA431' }, //{ event:'orange' },
-        'Routes' : { eventColor : '#10E309', eventColorHighlight : '#0EC41D' } //{ event:'green' }
-    },
-    duration :'230'
-};
-
+ 
 var glimpseTimelinePlugin = function () {
     var timeline,
         defaults = {
@@ -2707,12 +2795,11 @@ var glimpseTimelinePlugin = function () {
         },
         adjustProtocol = function (data) {
             //Pull out data and store
-            timelineData = data.timeline || glimpseTimelineData;
+            timelineData = data.Timeline;
             //Clear out data
             data[defaults.key] = 'Generating timeline, please wait...';
         },
-        adjustLayout = function () {   
-            console.log('test');
+        adjustLayout = function () {    
             timeline = glimpseTimeline($('.glimpse-panelitem-' + defaults.key), timelineData);
             timeline.init();
             if (defaults.height) {

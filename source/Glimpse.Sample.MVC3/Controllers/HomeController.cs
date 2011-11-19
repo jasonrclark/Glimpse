@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 using Glimpse.Core.Extensibility;
 using MvcMusicStore.Models;
@@ -33,17 +34,20 @@ namespace MvcMusicStore.Controllers
 
             Trace.Write("Got top 5 albums");
 
-            using (GlimpseTrace.Time("It takes {t:g} to trace (which is {t:ss} seconds)"))
-            {
-                GlimpseTrace.Info("This is info from Glimpse");
-                GlimpseTrace.Warn("This is warn from Glimpse at {0}", DateTime.Now);
-                GlimpseTrace.Error("This is error from {0}", GetType());
-                GlimpseTrace.Fail("This is Fail from Glimpse");
+            GlimpseTrace.Info("This is info from Glimpse");
+            GlimpseTrace.Warn("This is warn from Glimpse at {0}", DateTime.Now);
+            GlimpseTrace.Error("This is error from {0}", GetType());
+            GlimpseTrace.Fail("This is Fail from Glimpse");
 
-                Trace.TraceWarning("Test TraceWarning;");
-                Trace.TraceError("Test TraceError;");
-                Trace.TraceInformation("Test TraceInformation;"); 
-            }
+            GlimpseTimer.Moment("Custom timming event from HomeController", "Custom");
+
+            Trace.TraceWarning("Test TraceWarning;");
+            Trace.TraceError("Test TraceError;");
+            Trace.TraceInformation("Test TraceInformation;"); 
+
+
+
+            //GlimpseTimer.Moment("A Moment", "Other", "This is just a moment in time.");
 
 
             TempData["Test"] = "A bit of temp";
@@ -60,6 +64,12 @@ namespace MvcMusicStore.Controllers
                 .OrderByDescending(a => a.OrderDetails.Count())
                 .Take(count)
                 .ToList();
+        }
+
+        public string FilterTest()
+        {
+            return
+                "Simple Page to test Glimpse without html tags";
         }
 
         public virtual ActionResult News()

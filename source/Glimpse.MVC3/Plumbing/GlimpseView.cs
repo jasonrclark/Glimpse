@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Web.Mvc;
+using Glimpse.Core.Extensibility;
 
 namespace Glimpse.Mvc3.Plumbing
 {
@@ -23,11 +23,14 @@ namespace Glimpse.Mvc3.Plumbing
             var id = Guid.NewGuid().ToString();
 
 
-            writer.Write("<!--VIEW("+ViewName+")-->");
+            //writer.Write("<!--VIEW("+ViewName+")-->");
 
-            View.Render(viewContext, writer);
+            using (GlimpseTimer.Start(string.Format("Render View: {0}", ViewName), "View"))
+            {
+                View.Render(viewContext, writer);
+            }
 
-            writer.Write("<!--/VIEW(" + ViewName + ")-->");
+            //writer.Write("<!--/VIEW(" + ViewName + ")-->");
 
         }
     }

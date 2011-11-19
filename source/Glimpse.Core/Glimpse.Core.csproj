@@ -57,9 +57,12 @@
     <Reference Include="System.configuration">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +81,7 @@
     <Compile Include="Configuration\UrlBlacklistCollection.cs" />
     <Compile Include="Converter\AuthenticationSectionConverter.cs" />
     <Compile Include="Converter\CustomErrorsSectionConverter.cs" />
+    <Compile Include="Extensibility\GlimpseTimer.cs" />
     <Compile Include="Extensibility\GlimpseTrace.cs" />
     <Compile Include="Extensibility\GlimpseHandlerAttribute.cs" />
     <Compile Include="Extensibility\GlimpseValidatorAttribute.cs" />
@@ -89,10 +93,13 @@
     <Compile Include="Extensibility\IProvideGlimpseHelp.cs" />
     <Compile Include="Extensibility\IProvideGlimpsePaging.cs" />
     <Compile Include="Extensibility\IProvideGlimpseStructuredLayout.cs" />
+    <Compile Include="Extensibility\TimerMetadata.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Handlers\HandlerBase.cs" />
     <Compile Include="Handlers\ImageHandlerBase.cs" />
     <Compile Include="Handlers\JavascriptData.cs" />
+    <Compile Include="Handlers\Pager.cs" />
+    <Compile Include="Plugin\Timing.cs" />
     <Compile Include="Plumbing\GlimpseFactory.cs" />
     <Compile Include="Plumbing\GlimpseContractResolver.cs" />
     <Compile Include="Handlers\JsonHandlerBase.cs" />
@@ -101,6 +108,33 @@
     <Compile Include="Plumbing\GlimpseResponseFilter.cs" />
     <Compile Include="Plumbing\GlimpseSerializer.cs" />
     <Compile Include="Plumbing\InProcStackMetadataStore.cs" />
+    <Content Include="Scripts\glimpse.plugin.history.js" />
+    <Content Include="Scripts\glimpse.plugin.timeline.core.js" />
+    <Content Include="Scripts\glimpse.plugin.timeline.js" />
+    <Content Include="Scripts\glimpse.plugin.timeline.shell.css" />
+    <Content Include="Scripts\glimpse.plugin.timeline.shell.html" />
+    <Content Include="Scripts\glimpse.remote.plugin.js" />
+    <Content Include="Scripts\glimpse.plugin.ajax.js" />
+    <Content Include="Scripts\glimpse.controller.lazyloader.js" />
+    <Content Include="Scripts\glimpse.controller.metadata.js" />
+    <Content Include="Scripts\glimpse.controller.notification.js" />
+    <Content Include="Scripts\glimpse.controller.paging.js" />
+    <Content Include="Scripts\glimpse.controller.title.js" />
+    <Content Include="Scripts\glimpse.core.objects.js" />
+    <Content Include="Scripts\glimpse.core.process.js" />
+    <Content Include="Scripts\glimpse.controller.render.js" />
+    <Content Include="Scripts\glimpse.controller.sizer.js" />
+    <Content Include="Scripts\glimpse.core.data.js" />
+    <Content Include="Scripts\glimpse.paging.engine.continuous.js" />
+    <Content Include="Scripts\glimpse.paging.engine.js" />
+    <Content Include="Scripts\glimpse.paging.engine.scrolling.js" />
+    <Content Include="Scripts\glimpse.paging.engine.traditional.js" />
+    <Content Include="Scripts\glimpse.render.style.js" />
+    <Content Include="Scripts\glimpse.render.util.rawString.js">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="Scripts\glimpse.min.js" />
+    <Content Include="Scripts\glimpse.render.engine.master.js" />
     <Compile Include="Validator\ContentTypeValidator.cs" />
     <Compile Include="Validator\GlimpseModeValidator.cs" />
     <Compile Include="Validator\GlimpseRequestValidator.cs" />
@@ -142,22 +176,37 @@
     <Compile Include="Sanitizer\CSharpSanitizer.cs" />
     <Compile Include="Warning\SerializationWarning.cs" />
     <Compile Include="Warning\Warning.cs" />
+    <Content Include="Scripts\glimpse.view.shell.code.css" />
+    <Content Include="Scripts\google-code-prettify.js" />
+    <Content Include="Scripts\Test\test.glimpse.ajax.history.js" />
+    <Content Include="Scripts\Test\test.glimpse.ajax.ajax.js" />
+    <Content Include="Scripts\Test\glimpseTest.js" />
+    <Content Include="Scripts\Test\test.glimpse.ajax.pager.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="glimpseClient.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\glimpse.render.engine.string.js" />
+    <Content Include="Scripts\glimpse.js" />
+    <Content Include="Scripts\glimpse.render.engine.table.js" />
+    <Content Include="Scripts\glimpse.render.engine.js" />
+    <Content Include="Scripts\glimpse.render.engine.structured.js" />
+    <Content Include="Scripts\glimpse.view.metadata.html" />
     <Content Include="Scripts\jquery-1.6.3.min.js" />
-    <EmbeddedResource Include="glimpseCore2.js" />
-    <Content Include="Scripts\glimpse.init.js" />
-    <Content Include="Scripts\glimpse.shell.css" />
-    <Content Include="Scripts\glimpse.shell.html" />
-    <Content Include="Scripts\glimpse.shell.js" />
-    <Content Include="Scripts\glimpse.util.js" />
-    <Content Include="Scripts\glimpse.action.js" />
+    <Content Include="Scripts\sprite.png" />
+    <Content Include="Scripts\test-a.html" />
+    <Content Include="Scripts\test-popup.html" />
+    <Content Include="Scripts\Test\test.glimpse.ajax.js" />
+    <Content Include="Scripts\test.html" />
+    <Content Include="Scripts\glimpse.core.template.js" />
+    <Content Include="Scripts\glimpse.view.shell.css" />
+    <Content Include="Scripts\glimpse.view.shell.html" />
+    <Content Include="Scripts\glimpse.controller.shell.js" />
+    <Content Include="Scripts\glimpse.core.util.js" />
+    <Content Include="Scripts\glimpse.controller.tollbar.js" />
     <Content Include="Scripts\glimpse.core.js" />
-    <Content Include="Scripts\glimpse.plugin.js" />
-    <Content Include="Scripts\glimpse.pubsub.js" />
+    <Content Include="Scripts\glimpse.core.pubsub.js" />
     <EmbeddedResource Include="glimpseLogo.png" />
     <EmbeddedResource Include="glimpseSprite.png" />
     <Content Include="NuSpec\content\web.config.transform" />
@@ -166,7 +215,9 @@
     </None>
     <Content Include="NuSpec\content\App_Readme\glimpse.readme.txt" />
     <None Include="NuSpec\tools\install.ps1" />
-    <Content Include="Scripts\glimpse.state.js" />
+    <Content Include="Scripts\glimpse.core.state.js" />
+    <Content Include="Scripts\glimpse.render.engine.keyValue.js" />
+    <Content Include="Scripts\glimpse.plugin.ajax.spy.js" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

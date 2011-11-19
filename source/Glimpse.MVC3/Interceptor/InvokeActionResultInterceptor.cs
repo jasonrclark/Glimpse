@@ -27,7 +27,7 @@ namespace Glimpse.Mvc3.Interceptor
             watch.Start();
 
             invocation.Proceed();
-            
+
             watch.Stop();
 
             calledMetadata.ExecutionTime = watch.Elapsed;

@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using Glimpse.Core.Extensibility;
 
 namespace Glimpse.EF.Plumbing.Profiler
 {
@@ -150,15 +151,18 @@ namespace Glimpse.EF.Plumbing.Profiler
 
             LogCommandStart(commandId); 
             var stopwatch = Stopwatch.StartNew();
-            try
-            {
-                reader = InnerCommand.ExecuteReader(behavior);
-            }
-            catch (Exception exception)
-            {
-                LogCommandError(commandId, exception);
-                throw;
-            }
+
+
+                try
+                {
+                    reader = InnerCommand.ExecuteReader(behavior);
+                }
+                catch (Exception exception)
+                {
+                    LogCommandError(commandId, exception);
+                    throw;
+                }
+
             stopwatch.Stop(); 
             LogCommandEnd(commandId, stopwatch.ElapsedMilliseconds, reader.RecordsAffected);
 
@@ -175,15 +179,15 @@ namespace Glimpse.EF.Plumbing.Profiler
 
             LogCommandStart(commandId); 
             var stopwatch = Stopwatch.StartNew();
-            try
-            {
-                num = InnerCommand.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                LogCommandError(commandId, exception);
-                throw;
-            }
+                try
+                {
+                    num = InnerCommand.ExecuteNonQuery();
+                }
+                catch (Exception exception)
+                {
+                    LogCommandError(commandId, exception);
+                    throw;
+                }
             stopwatch.Stop(); 
             LogCommandEnd(commandId, stopwatch.ElapsedMilliseconds, num);
 
@@ -200,15 +204,15 @@ namespace Glimpse.EF.Plumbing.Profiler
 
             LogCommandStart(commandId); 
             var stopwatch = Stopwatch.StartNew();
-            try
-            {
-                result = InnerCommand.ExecuteScalar();
-            }
-            catch (Exception exception)
-            {
-                LogCommandError(commandId, exception);
-                throw;
-            }
+                try
+                {
+                    result = InnerCommand.ExecuteScalar();
+                }
+                catch (Exception exception)
+                {
+                    LogCommandError(commandId, exception);
+                    throw;
+                }
             stopwatch.Stop(); 
             LogCommandEnd(commandId, stopwatch.ElapsedMilliseconds, null);
 
