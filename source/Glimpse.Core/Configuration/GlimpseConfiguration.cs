@@ -62,6 +62,13 @@ namespace Glimpse.Core.Configuration
             get { return this["rootUrlPath"].ToString(); }
         }
 
+        [ConfigurationProperty("axdPath", DefaultValue = @"Glimpse.axd", IsRequired = false)]
+        public string AxdPath
+        {
+            set { this["axdPath"] = value; }
+            get { return this["axdPath"].ToString(); }
+        }
+
         [ConfigurationProperty("requestLimit", DefaultValue = "15", IsRequired = false)]
         public int RequestLimit
         {

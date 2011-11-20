@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Web;
 using Glimpse.Core.Configuration;
 using Glimpse.Core.Plumbing;
+using System.Configuration;
 
 namespace Glimpse.Core.Extensions
 {
@@ -66,10 +67,11 @@ namespace Glimpse.Core.Extensions
         public static string GlimpseResourcePath(this HttpContextBase context, string resource)
         {
             var root = VirtualPathUtility.ToAbsolute("~/", context.Request.ApplicationPath);
+            var config = ConfigurationManager.GetSection("glimpse") as GlimpseConfiguration ?? new GlimpseConfiguration();
 
-            if (resource == null) return string.Format("{0}Glimpse.axd", root);
+            if (resource == null) return string.Format("{0}{1}", root, config.AxdPath);
 
-            return string.Format("{0}Glimpse.axd?{3}={4}&{2}={1}", root, resource, Handler.ResourceKey, Handler.VersionKey, Module.RunningVersion);
+            return string.Format("{0}{5}?{3}={4}&{2}={1}", root, resource, Handler.ResourceKey, Handler.VersionKey, Module.RunningVersion, config.AxdPath);
         }
 
 /*        public static List<IGlimpseWarning> GetWarnings(this HttpContextBase context)
