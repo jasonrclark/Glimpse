@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using Glimpse.Core.Configuration;
 using Glimpse.Core.Plumbing;
+using System.Xml;
 
 namespace Glimpse.Core.Extensions
 {
@@ -65,12 +67,49 @@ namespace Glimpse.Core.Extensions
 
         public static string GlimpseResourcePath(this HttpContextBase context, string resource)
         {
-            var root = VirtualPathUtility.ToAbsolute("~/", context.Request.ApplicationPath);
+            var root = VirtualPathUtility.ToAbsolute(GlimpseResourceRoot(context), context.Request.ApplicationPath);
 
             if (resource == null) return string.Format("{0}Glimpse.axd", root);
 
             return string.Format("{0}Glimpse.axd?{3}={4}&{2}={1}", root, resource, Handler.ResourceKey, Handler.VersionKey, Module.RunningVersion);
         }
+
+        internal static string GlimpseResourceRoot(HttpContextBase httpContext)
+        {
+            if (_resourceRoot == null)
+            {
+                var config = WebConfigurationManager.OpenWebConfiguration("~/web.config");
+                var webContext = config.EvaluationContext.HostingContext as WebContext;
+
+                if (webContext != null)
+                {
+                    var doc = new XmlDocument();
+                    doc.Load(httpContext.Server.MapPath(webContext.Path));
+
+                    _resourceRoot = GetResourceRootFromHandler(doc.SelectNodes("//system.web/httpHandlers/add"));
+                    _resourceRoot = _resourceRoot ?? GetResourceRootFromHandler(doc.SelectNodes("//system.webServer/handlers/add"));
+                }
+            }
+
+            return _resourceRoot;
+        }
+
+        internal static string GetResourceRootFromHandler(XmlNodeList handlers)
+        {
+            string rootPath = "~/";
+            string glimpseHandlerName = typeof(Handler).FullName;
+
+            var handler = handlers.Cast<XmlNode>().FirstOrDefault(h => h.Attributes["type"].Value.StartsWith(glimpseHandlerName));
+            if (handler != null)
+            {
+                string path = handler.Attributes["path"].Value;
+                rootPath += path.Substring(0, path.Length - "glimpse.axd".Length);
+            }
+
+            return rootPath.Replace("//", "/");
+        }
+
+        private static string _resourceRoot;
 
 /*        public static List<IGlimpseWarning> GetWarnings(this HttpContextBase context)
         {

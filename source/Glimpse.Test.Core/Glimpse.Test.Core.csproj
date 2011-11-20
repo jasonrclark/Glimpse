@@ -50,8 +50,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\HttpContextBaseExtensionsTest.cs" />
     <Compile Include="IpAddressValidatorTest.cs" />
     <Compile Include="ModuleTest.cs" />
     <Compile Include="Plugin\RequestTest.cs" />
